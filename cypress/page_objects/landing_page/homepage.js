@@ -1,12 +1,17 @@
-class Homepage {
+// class Homepage {
 
-    getSearchButton () {
-        return cy.get("#search_button_homepage")
-    }
+//     getSearchButton () {
+//         return cy.get("#search_button_homepage")
+//     }
 
-    getSearchInputField () {
-        return cy.get("#search_form_input_homepage")
-    }
+//     getSearchInputField () {
+//         return cy.get("#search_form_input_homepage")
+//     }
+// };
+
+// export default Homepage;
+
+export const Homepage = {
+    getSearchButton: () => cy.get("#search_button_homepage"),
+    getSearchInputField: () => cy.get("#search_form_input_homepage"),
 };
-
-export default Homepage

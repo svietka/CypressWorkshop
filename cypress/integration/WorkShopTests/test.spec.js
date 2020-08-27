@@ -1,12 +1,13 @@
-import Homepage from /Users/Agota/CypressWorkshop/cypress/page_objects/landing_page/homepage.js
+import { Homepage } from '../../page_objects/landing_page/homepage';
+// import Kitoks from '../../page_objects/landing_page/homepage';
 
 /// <reference types="cypress" />
 
-let homepage = new Homepage()
+// let homepage = new Homepage()
 
 beforeEach("Executes", () => {
     cy.visit("http://www.duckduckgo.com")
-})
+});
 
 // it("Loads the duckduckgo page", () => {
 //     cy.contains("Tired of being tracked online? We can help.")
@@ -53,7 +54,8 @@ beforeEach("Executes", () => {
 //     })
 
 it("Search wiki in duckduckgo", () => {
-    cy.get('#search_form_homepage').type("!wiki")
-    homepage.getSearchButton().click()
+    cy.get('#search_form_homepage').type("!wiki");
+    console.log('nx blet, ', Homepage.getSearchButton());
+    Homepage.getSearchButton().click()
 });
 
