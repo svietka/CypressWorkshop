@@ -1,0 +1,22 @@
+{
+  "name": "cypressworkshop",
+  "version": "1.0.0",
+  "description": "Automation Workshop\r Test.",
+  "main": "index.js",
+  "scripts": {
+    "cypress:open": "cypress open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MartynasLun/CypressWorkshop.git"
+  },
+  "author": "Jovita",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MartynasLun/CypressWorkshop/issues"
+  },
+  "homepage": "https://github.com/MartynasLun/CypressWorkshop#readme",
+  "dependencies": {
+    "cypress": "^5.0.0"
+  }
+}
