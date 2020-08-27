@@ -1,0 +1,4 @@
+passwords.txt
+reports/*
+node_modules
+cypress/integration/examples/*
