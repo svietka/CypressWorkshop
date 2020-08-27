@@ -49,7 +49,7 @@ it('Intitle search options works', () => {
     });
     
 })
-//test
+//test//test
 it('Should redirect to first result', () => {
     cy.visit('https://duckduckgo.com')
     cy.get('#search_form_input_homepage').type('!Wiki{enter}')
