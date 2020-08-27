@@ -1,7 +1,4 @@
 # CypressWorkshop
 
 
-;    ;
- ____
-
-smth new
+AL Bandymas
