@@ -1,0 +1,19 @@
+Dažniausiai pasikartojančios klaidos surastos:
+- TS4.1 : Builds, kuriuose pasitaikė - 2, 4, 7, 9
+- TS4.2 : Builds, kuriuose pasitaikė - 7, 8, 9
+- TS4.4 : Builds, kuriuose pasitaikė - 4, 6, 7, 8, 9
+- TS4.5 : Builds, kuriuose pasitaikė - 2, 3, 7, 8, 9
+- TS5.1 : Builds, kuriuose pasitaikė - 1, 2, 4, 7, 8, 9
+
+Panaudotos reikšmės (poromis žiūrint stulpeliu, tuščia vieta reiškia ' '):
+firstNumber  = 8; 8;   8;
+secondNumber = 3;  ;   2;
+firstSymbol  = C;  ; &$@;
+secondSymbol = P; P;   P;
+
+Su visais parašytais testais nepavyko sulaužyti tik 5 build'o.
+
+Pastebėjimas:
+    Prototype build'e atlikus dalybos iš nulį veiksmą klaidos kodas yra tiesiogiai parodomas, tačiau svetainės laukai tampa neaktyvūs
+    ir norint atlikti kitą veiksmą reikia perkrauti puslapį. Lyginant pagal tokį build aš tai traktavau kaip stabilų veiksmą, todėl
+    gavus atsakymą 'Divide by zero error!' puslapį visados perkraudavau. (Iš šio trūkio galima išeiti ir pakeitus build'ą).
