@@ -1,4 +1,4 @@
-export const sumWholeNumberValues = [
+const sumWholeNumberValues = [
     {
         firstNumber: -1,
         secondNumber: -1,
@@ -26,7 +26,7 @@ export const sumWholeNumberValues = [
     }
 ];
 
-export const sumFractionNumberValues = [
+const sumFractionNumberValues = [
     {
         firstNumber: -1.1,
         secondNumber: -1.1,
@@ -50,7 +50,7 @@ export const sumFractionNumberValues = [
     }
 ];
 
-export const sumFractionNumberValuesIntegerAnswer = [
+const sumFractionNumberValuesIntegerAnswer = [
     {
         firstNumber: -1.1,
         secondNumber: -1.1,
@@ -74,7 +74,9 @@ export const sumFractionNumberValuesIntegerAnswer = [
     }
 ];
 
-export const multiplyWholeNumberValues = [
+const buildVersions = ["Prototype", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+
+const multiplyWholeNumberValues = [
     {
         firstNumber: -1,
         secondNumber: -1,
@@ -102,7 +104,7 @@ export const multiplyWholeNumberValues = [
     }
 ];
 
-export const multiplyFractionNumberValues = [
+const multiplyFractionNumberValues = [
     {
         firstNumber: -1.1,
         secondNumber: -1.1,
@@ -126,9 +128,11 @@ export const multiplyFractionNumberValues = [
     }
 ];
 
-export const symbolValues = [
-    {
-        firstNumber: '$',
-        secondNumber: '$'
-    }
-];
+export default {
+    sumWholeNumberValues,
+    sumFractionNumberValues,
+    sumFractionNumberValuesIntegerAnswer,
+    buildVersions,
+    // multiplyWholeNumberValue,
+    // multiplyFractionNumberValues
+};
