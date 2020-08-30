@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/MartynasLun/CypressWorkshop/issues"
   },
-  "homepage": "https://github.com/MartynasLun/CypressWorkshop#readme"
+  "homepage": "https://github.com/MartynasLun/CypressWorkshop#readme",
+  "dependencies": {
+    "cypress": "^5.0.0"
+  }
 }
