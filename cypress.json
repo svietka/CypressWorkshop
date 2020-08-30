@@ -1,1 +1,4 @@
-{"baseUrl": "https://duckduckgo.com/"}
+{
+    "baseUrl": "https://duckduckgo.com/",
+    "chromeWebSecurity": false
+}
