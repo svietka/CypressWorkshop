@@ -1,19 +1,18 @@
-Dažniausiai pasikartojančios klaidos surastos:
-- TS4.1 : Builds, kuriuose pasitaikė - 2, 4, 7, 9
-- TS4.2 : Builds, kuriuose pasitaikė - 7, 8, 9
-- TS4.4 : Builds, kuriuose pasitaikė - 4, 6, 7, 8, 9
-- TS4.5 : Builds, kuriuose pasitaikė - 2, 3, 7, 8, 9
-- TS5.1 : Builds, kuriuose pasitaikė - 1, 2, 4, 7, 8, 9
+The most common errors:
+- TS4.1 : The build number, where the error occured - 2, 4, 7, 9
+- TS4.2 : The build number, where the error occured - 7, 8, 9
+- TS4.4 : The build number, where the error occured - 4, 6, 7, 8, 9
+- TS4.5 : The build number, where the error occured - 2, 3, 7, 8, 9
+- TS5.1 : The build number, where the error occured - 1, 2, 4, 7, 8, 9
 
-Panaudotos reikšmės (poromis žiūrint stulpeliu, tuščia vieta reiškia ' '):
+Used variables for testing (in pairs looking from a column perspective, the empty spaces mean ' '):
 firstNumber  = 8; 8;   8;
 secondNumber = 3;  ;   2;
 firstSymbol  = C;  ; &$@;
 secondSymbol = P; P;   P;
 
-Su visais parašytais testais nepavyko sulaužyti tik 5 build'o.
+Considering all of the combined tests the only build that I was not able to break is number 5.
 
-Pastebėjimas:
-    Prototype build'e atlikus dalybos iš nulį veiksmą klaidos kodas yra tiesiogiai parodomas, tačiau svetainės laukai tampa neaktyvūs
-    ir norint atlikti kitą veiksmą reikia perkrauti puslapį. Lyginant pagal tokį build aš tai traktavau kaip stabilų veiksmą, todėl
-    gavus atsakymą 'Divide by zero error!' puslapį visados perkraudavau. (Iš šio trūkio galima išeiti ir pakeitus build'ą).
+In the Prototype build the 'Divide by zero!' error breaks the calculator page and the only way to continue using the calculator
+is either to refresh the browser, or to change the build.
+I considered this fact as a 'feature' and wrote testing procedures accordingly.

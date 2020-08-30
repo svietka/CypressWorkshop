@@ -1,55 +1,24 @@
 class Calculator {
-    
-    initialPage = "https://testsheepnz.github.io/BasicCalculator";
-    buildDropDownList = '#selectBuild';
-    firstNumberField = '#number1Field';
-    secondNumberField = '#number2Field';
-    operationDropDownList = '#selectOperationDropdown';
-    calculateButton = '#calculateButton';
-    answerField = '#numberAnswerField';
-    integerSelection = '#integerSelect';
-    clearButton = '#clearButton';
-    errorField = '#errorMsgField';
 
-    visitInitialPage() {
-        return cy.visit(this.initialPage);
-    }
+    visitInitialPage = () => cy.visit("https://testsheepnz.github.io/BasicCalculator")
 
-    getBuildDropDownList() {
-        return cy.get(this.buildDropDownList);
-    }
+    getBuildDropDownList = () => cy.get('#selectBuild')
 
-    getFirstNumberField() {
-        return cy.get(this.firstNumberField);
-    }
+    getFirstNumberField = () => cy.get('#number1Field')
 
-    getSecondNumberField() {
-        return cy.get(this.secondNumberField);
-    }
+    getSecondNumberField = () => cy.get('#number2Field')
 
-    getOperationDropDownList() {
-        return cy.get(this.operationDropDownList);
-    }
+    getOperationDropDownList = () => cy.get('#selectOperationDropdown')
 
-    getCalculateButton() {
-        return cy.get(this.calculateButton);
-    }
+    getCalculateButton = () => cy.get('#calculateButton')
 
-    getAnswerField() {
-        return cy.get(this.answerField);
-    }
+    getAnswerField = () => cy.get('#numberAnswerField')
 
-    getIntegerSelection() {
-        return cy.get(this.integerSelection);
-    }
+    getIntegerSelection = () => cy.get('#integerSelect')
 
-    getClearButton() {
-        return cy.get(this.clearButton);
-    }
+    getClearButton = () => cy.get('#clearButton')
 
-    getErrorField() {
-        return cy.get(this.errorField);
-    }
+    getErrorField = () => cy.get('#errorMsgField')
 }
 
 export default Calculator
