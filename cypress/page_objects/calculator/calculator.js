@@ -68,7 +68,12 @@ class Calculator {
         this.selectOperation(Calculator.OPERATIONS.DIVIDE);
 
         this.getAnswer(num1, num2, intOnly);
-        this.getErrorField().should('not.be.visible');
+
+        if (num2 == 0)
+            this.getErrorField().should('be.visible').contains('Divide by zero error!');
+        else
+            this.getErrorField().should('not.be.visible');
+
         this.getAnswerField().should('have.value', intOnly ? parseInt(num1 / num2) : num1 / num2);
     }
 

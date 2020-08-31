@@ -72,12 +72,8 @@ builds.forEach((build) => {
         });
 
         describe('Division by zero', () => {
-            it.only(`can handle division by zero error`, () => {
-                calculator.selectOperation(Calculator.OPERATIONS.DIVIDE);
-
-                calculator.getAnswer(0, 0);
-                calculator.getErrorField().should('be.visible').contains('Divide by zero error!');
-            });
+            it.only(`can handle division by zero error`, () => 
+                calculator.divide(0, 0));
         });
     });
 });
