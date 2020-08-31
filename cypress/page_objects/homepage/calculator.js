@@ -1,24 +1,24 @@
 class Calculator {
     getInputFieldFirst() {
-    return cy.get('#number1Field');
+        return cy.get('#number1Field');
     }
-    getInputFieldSecond(){
-    return cy.get('#number2Field');   
+    getInputFieldSecond() {
+        return cy.get('#number2Field');
     }
-    selectDropDown(){
-    return cy.get('#selectOperationDropdown');
+    selectDropDown() {
+        return cy.get('#selectOperationDropdown');
     }
-    calculateButton(){
-    return cy.get('#calculateButton');
+    calculateButton() {
+        return cy.get('#calculateButton');
     }
-    getAnswerField(){
-    return cy.get('#numberAnswerField');
+    getAnswerField() {
+        return cy.get('#numberAnswerField');
     }
-    onlyIntegers(){
-    return cy.get('#integerSelect');
+    onlyIntegers() {
+        return cy.get('#integerSelect');
     }
-    getbuildVersion(){
-    return cy.get('#selectBuild');
+    getbuildVersion() {
+        return cy.get('#selectBuild');
     }
-    }
-    export default Calculator
+}
+export default Calculator
