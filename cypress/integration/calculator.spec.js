@@ -43,6 +43,7 @@ const invalidNumberPairs = [
   },
 ];
 
+// TODO: Move repetitive test code to reusable functions
 describe("Basic calculator", () => {
   beforeEach(() => {
     calculator.visit();
@@ -53,8 +54,11 @@ describe("Basic calculator", () => {
      * Happy path scenario
      */
     describe(`Build ${build} - HP`, () => {
-      it.only("should have inputs and buttons enabled", () => {
+      beforeEach(() => {
         calculator.selectBuild(build);
+      });
+
+      it.only("should have inputs and buttons enabled", () => {
         calculator.getNumber1().should("be.enabled");
         calculator.getNumber2().should("be.enabled");
         calculator.getOperation().should("be.enabled");
@@ -64,7 +68,6 @@ describe("Basic calculator", () => {
       });
 
       it("should add valid numbers", () => {
-        calculator.selectBuild(build);
         numberPairs.forEach((x) => {
           calculator.setNumber1(x.num1);
           calculator.setNumber2(x.num2);
@@ -78,7 +81,6 @@ describe("Basic calculator", () => {
       });
 
       it("should substract valid numbers", () => {
-        calculator.selectBuild(build);
         numberPairs.forEach((x) => {
           calculator.setNumber1(x.num1);
           calculator.setNumber2(x.num2);
@@ -92,7 +94,6 @@ describe("Basic calculator", () => {
       });
 
       it("should multiply valid numbers", () => {
-        calculator.selectBuild(build);
         numberPairs.forEach((x) => {
           calculator.setNumber1(x.num1);
           calculator.setNumber2(x.num2);
@@ -106,7 +107,6 @@ describe("Basic calculator", () => {
       });
 
       it.only("should divide valid numbers", () => {
-        calculator.selectBuild(build);
         numberPairs.forEach((x) => {
           calculator.setNumber1(x.num1);
           calculator.setNumber2(x.num2);
@@ -120,7 +120,6 @@ describe("Basic calculator", () => {
       });
 
       it("should concatenate numbers", () => {
-        calculator.selectBuild(build);
         numberPairs.forEach((x) => {
           calculator.setNumber1(x.num1);
           calculator.setNumber2(x.num2);
@@ -135,7 +134,6 @@ describe("Basic calculator", () => {
       it.only("should concatenate strings", () => {
         const num1 = "abc";
         const num2 = 123;
-        calculator.selectBuild(build);
         calculator.setNumber1(num1);
         calculator.setNumber2(num2);
         calculator.selectOperation(Operations.Concatenate);
@@ -148,7 +146,6 @@ describe("Basic calculator", () => {
       it("should clear answer input and integers only checkbox", () => {
         const num1 = 1;
         const num2 = 2;
-        calculator.selectBuild(build);
         calculator.setNumber1(num1);
         calculator.setNumber2(num2);
         calculator.selectOperation(Operations.Add);
@@ -165,8 +162,11 @@ describe("Basic calculator", () => {
      * Negative flow scenario
      */
     describe(`Build ${build} - NF`, () => {
-      it.only("should show error on add operation with invalid numbers", () => {
+      beforeEach(() => {
         calculator.selectBuild(build);
+      });
+
+      it.only("should show error on add operation with invalid numbers", () => {
         invalidNumberPairs.forEach((x) => {
           calculator.setNumber1(x.num1);
           calculator.setNumber2(x.num2);
@@ -180,7 +180,6 @@ describe("Basic calculator", () => {
       });
 
       it("should show error on subtract operation with invalid numbers", () => {
-        calculator.selectBuild(build);
         invalidNumberPairs.forEach((x) => {
           calculator.setNumber1(x.num1);
           calculator.setNumber2(x.num2);
@@ -194,7 +193,6 @@ describe("Basic calculator", () => {
       });
 
       it("should show error on multiply operation with invalid numbers", () => {
-        calculator.selectBuild(build);
         invalidNumberPairs.forEach((x) => {
           calculator.setNumber1(x.num1);
           calculator.setNumber2(x.num2);
@@ -208,7 +206,6 @@ describe("Basic calculator", () => {
       });
 
       it("should show error on divide operation with invalid numbers", () => {
-        calculator.selectBuild(build);
         invalidNumberPairs.forEach((x) => {
           calculator.setNumber1(x.num1);
           calculator.setNumber2(x.num2);
@@ -224,7 +221,6 @@ describe("Basic calculator", () => {
       it.only("should show error on divide operation by zero", () => {
         const num1 = 1;
         const num2 = 0;
-        calculator.selectBuild(build);
         calculator.setNumber1(num1);
         calculator.setNumber2(num2);
         calculator.selectOperation(Operations.Divide);
@@ -236,7 +232,6 @@ describe("Basic calculator", () => {
       it("should clear integers only checkbox and error message", () => {
         const num1 = "a";
         const num2 = "b";
-        calculator.selectBuild(build);
         calculator.setNumber1(num1);
         calculator.setNumber2(num2);
         calculator.selectOperation(Operations.Add);
