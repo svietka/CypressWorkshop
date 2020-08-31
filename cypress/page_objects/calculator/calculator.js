@@ -32,6 +32,8 @@ class Calculator {
             this.getIntegerSelectBox().should('be.enabled');
             this.getIntegerSelectBox().check();
         }
+        else
+            this.getIntegerSelectBox().uncheck({ force: true });
 
         this.getFieldOne().type(valOne);
         this.getFieldTwo().type(valTwo);
