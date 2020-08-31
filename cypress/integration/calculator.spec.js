@@ -1,5 +1,5 @@
 /// <reference types="cypress" />
-import CalculatorPage, { Operations } from "../support/page_objects/calculator";
+import CalculatorPage, { Operations } from "../page-objects/calculator";
 
 const calculator = new CalculatorPage();
 
@@ -53,7 +53,7 @@ describe("Basic calculator", () => {
     /**
      * Happy path scenario
      */
-    describe(`Build ${build} - HP`, () => {
+    context(`Build ${build} - HP`, () => {
       beforeEach(() => {
         calculator.selectBuild(build);
       });
@@ -161,7 +161,7 @@ describe("Basic calculator", () => {
     /**
      * Negative flow scenario
      */
-    describe(`Build ${build} - NF`, () => {
+    context(`Build ${build} - NF`, () => {
       beforeEach(() => {
         calculator.selectBuild(build);
       });
