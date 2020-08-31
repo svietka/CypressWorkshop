@@ -70,7 +70,10 @@ class Calculator {
         this.getAnswer(num1, num2, intOnly);
 
         if (num2 == 0)
+        {
             this.getErrorField().should('be.visible').contains('Divide by zero error!');
+            return;
+        }
         else
             this.getErrorField().should('not.be.visible');
 
