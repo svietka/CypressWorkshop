@@ -37,8 +37,13 @@ var homepage = new Homepage
 //     });
 // })
 
-it("should redirect to first result", ()=> {
-    cy.visit("https://www.duckduckgo.com")
-    cy.get('#search_form_homepage').type("!wiki")
-    homepage.clickSearchButton()
-    })
+// it("should redirect to first result", ()=> {
+//     cy.visit("https://www.duckduckgo.com")
+//     cy.get('#search_form_homepage').type("!wiki")
+//     homepage.clickSearchButton()
+//     })
+
+it("Lets go", ()=> {
+        cy.visit("http://www.eismosaugumasbendruomenese.lt/admin/")
+      
+        })
