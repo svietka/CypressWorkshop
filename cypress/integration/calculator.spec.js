@@ -68,64 +68,64 @@ describe("Basic calculator", () => {
       });
 
       it("should add valid numbers", () => {
-        numberPairs.forEach((x) => {
-          calculator.setNumber1(x.num1);
-          calculator.setNumber2(x.num2);
+        numberPairs.forEach((numberPair) => {
+          calculator.setNumber1(numberPair.num1);
+          calculator.setNumber2(numberPair.num2);
           calculator.selectOperation(Operations.Add);
           calculator.uncheckIntegersOnly();
           calculator.calculate();
-          calculator.validateAnswer(x.num1, x.num2, Operations.Add);
+          calculator.validateAnswer(numberPair.num1, numberPair.num2, Operations.Add);
           calculator.checkIntegersOnly();
-          calculator.validateAnswer(x.num1, x.num2, Operations.Add, true);
+          calculator.validateAnswer(numberPair.num1, numberPair.num2, Operations.Add, true);
         });
       });
 
       it("should substract valid numbers", () => {
-        numberPairs.forEach((x) => {
-          calculator.setNumber1(x.num1);
-          calculator.setNumber2(x.num2);
+        numberPairs.forEach((numberPair) => {
+          calculator.setNumber1(numberPair.num1);
+          calculator.setNumber2(numberPair.num2);
           calculator.selectOperation(Operations.Subtract);
           calculator.uncheckIntegersOnly();
           calculator.calculate();
-          calculator.validateAnswer(x.num1, x.num2, Operations.Subtract);
+          calculator.validateAnswer(numberPair.num1, numberPair.num2, Operations.Subtract);
           calculator.checkIntegersOnly();
-          calculator.validateAnswer(x.num1, x.num2, Operations.Subtract, true);
+          calculator.validateAnswer(numberPair.num1, numberPair.num2, Operations.Subtract, true);
         });
       });
 
       it("should multiply valid numbers", () => {
-        numberPairs.forEach((x) => {
-          calculator.setNumber1(x.num1);
-          calculator.setNumber2(x.num2);
+        numberPairs.forEach((numberPair) => {
+          calculator.setNumber1(numberPair.num1);
+          calculator.setNumber2(numberPair.num2);
           calculator.selectOperation(Operations.Multiply);
           calculator.uncheckIntegersOnly();
           calculator.calculate();
-          calculator.validateAnswer(x.num1, x.num2, Operations.Multiply);
+          calculator.validateAnswer(numberPair.num1, numberPair.num2, Operations.Multiply);
           calculator.checkIntegersOnly();
-          calculator.validateAnswer(x.num1, x.num2, Operations.Multiply, true);
+          calculator.validateAnswer(numberPair.num1, numberPair.num2, Operations.Multiply, true);
         });
       });
 
       it.only("should divide valid numbers", () => {
-        numberPairs.forEach((x) => {
-          calculator.setNumber1(x.num1);
-          calculator.setNumber2(x.num2);
+        numberPairs.forEach((numberPair) => {
+          calculator.setNumber1(numberPair.num1);
+          calculator.setNumber2(numberPair.num2);
           calculator.selectOperation(Operations.Divide);
           calculator.uncheckIntegersOnly();
           calculator.calculate();
-          calculator.validateAnswer(x.num1, x.num2, Operations.Divide);
+          calculator.validateAnswer(numberPair.num1, numberPair.num2, Operations.Divide);
           calculator.checkIntegersOnly();
-          calculator.validateAnswer(x.num1, x.num2, Operations.Divide, true);
+          calculator.validateAnswer(numberPair.num1, numberPair.num2, Operations.Divide, true);
         });
       });
 
       it("should concatenate numbers", () => {
-        numberPairs.forEach((x) => {
-          calculator.setNumber1(x.num1);
-          calculator.setNumber2(x.num2);
+        numberPairs.forEach((numberPair) => {
+          calculator.setNumber1(numberPair.num1);
+          calculator.setNumber2(numberPair.num2);
           calculator.selectOperation(Operations.Concatenate);
           calculator.calculate();
-          calculator.validateAnswer(x.num1, x.num2, Operations.Concatenate);
+          calculator.validateAnswer(numberPair.num1, numberPair.num2, Operations.Concatenate);
           calculator.getIntegersOnly().should("not.be.visible");
           calculator.getError().should("not.be.visible");
         });
@@ -167,54 +167,54 @@ describe("Basic calculator", () => {
       });
 
       it.only("should show error on add operation with invalid numbers", () => {
-        invalidNumberPairs.forEach((x) => {
-          calculator.setNumber1(x.num1);
-          calculator.setNumber2(x.num2);
+        invalidNumberPairs.forEach((numberPair) => {
+          calculator.setNumber1(numberPair.num1);
+          calculator.setNumber2(numberPair.num2);
           calculator.selectOperation(Operations.Add);
           calculator.uncheckIntegersOnly();
           calculator.calculate();
-          calculator.validateError(x.num1, x.num2);
+          calculator.validateError(numberPair.num1, numberPair.num2);
           calculator.checkIntegersOnly();
-          calculator.validateError(x.num1, x.num2);
+          calculator.validateError(numberPair.num1, numberPair.num2);
         });
       });
 
       it("should show error on subtract operation with invalid numbers", () => {
-        invalidNumberPairs.forEach((x) => {
-          calculator.setNumber1(x.num1);
-          calculator.setNumber2(x.num2);
+        invalidNumberPairs.forEach((numberPair) => {
+          calculator.setNumber1(numberPair.num1);
+          calculator.setNumber2(numberPair.num2);
           calculator.selectOperation(Operations.Subtract);
           calculator.uncheckIntegersOnly();
           calculator.calculate();
-          calculator.validateError(x.num1, x.num2);
+          calculator.validateError(numberPair.num1, numberPair.num2);
           calculator.checkIntegersOnly();
-          calculator.validateError(x.num1, x.num2);
+          calculator.validateError(numberPair.num1, numberPair.num2);
         });
       });
 
       it("should show error on multiply operation with invalid numbers", () => {
-        invalidNumberPairs.forEach((x) => {
-          calculator.setNumber1(x.num1);
-          calculator.setNumber2(x.num2);
+        invalidNumberPairs.forEach((numberPair) => {
+          calculator.setNumber1(numberPair.num1);
+          calculator.setNumber2(numberPair.num2);
           calculator.selectOperation(Operations.Multiply);
           calculator.uncheckIntegersOnly();
           calculator.calculate();
-          calculator.validateError(x.num1, x.num2);
+          calculator.validateError(numberPair.num1, numberPair.num2);
           calculator.checkIntegersOnly();
-          calculator.validateError(x.num1, x.num2);
+          calculator.validateError(numberPair.num1, numberPair.num2);
         });
       });
 
       it("should show error on divide operation with invalid numbers", () => {
-        invalidNumberPairs.forEach((x) => {
-          calculator.setNumber1(x.num1);
-          calculator.setNumber2(x.num2);
+        invalidNumberPairs.forEach((numberPair) => {
+          calculator.setNumber1(numberPair.num1);
+          calculator.setNumber2(numberPair.num2);
           calculator.selectOperation(Operations.Divide);
           calculator.uncheckIntegersOnly();
           calculator.calculate();
-          calculator.validateError(x.num1, x.num2, Operations.Divide);
+          calculator.validateError(numberPair.num1, numberPair.num2, Operations.Divide);
           calculator.checkIntegersOnly();
-          calculator.validateError(x.num1, x.num2, Operations.Divide);
+          calculator.validateError(numberPair.num1, numberPair.num2, Operations.Divide);
         });
       });
 
