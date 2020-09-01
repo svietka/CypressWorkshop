@@ -10,10 +10,7 @@ const digitInputValue = 45
 const textInputValue = 'aaaaaaaaaa'
 const decimalInputValue = 1.2
 
-
 const valuesArray = [maxInputValue,minInputValue,zeroInputValue, digitInputValue];
-
-
 
 beforeEach (() => {
     cy.visit ('/BasicCalculator')
@@ -194,17 +191,15 @@ describe('Should test on different builds', () => {
                 })
             })
         }) 
+
         it.only('Checks error message when dividing ' + digitInputValue + ' by ' + zeroInputValue + '. While build is set to: ' + buildas, ()=>{
             localhomepage.getbuiltVersion().select(buildas)
-            localhomepage.getfirstNumberField().type( digitInputValue)
+            localhomepage.getfirstNumberField().type(digitInputValue)
             localhomepage.getsecondNumberField().type(zeroInputValue)
             localhomepage.getoperationField().select('3')
             localhomepage.getcalculateButton().click()
             localhomepage.geterrorMessageField().contains('Divide by zero error!')
-            
         })
-
- 
 
         it.only('It checks rounding up, when summing up ' + decimalInputValue + ' with ' + decimalInputValue + ' . While build is set to: ' + buildas, ()=>{
             localhomepage.getbuiltVersion().select(buildas)
