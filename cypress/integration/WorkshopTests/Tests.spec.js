@@ -1,5 +1,5 @@
 /// <reference types="cypress" />
-import Homepage from '../../../page_objects/homepage/homepage.js'
+import Homepage from '../../page_objects/homepage/homepage.js'
 
 var homepage = new Homepage
 
