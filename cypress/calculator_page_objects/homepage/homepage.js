@@ -8,6 +8,22 @@ class Homepage{
     ClickClaculateButton () {
         return cy.get("#calculateButton").click()
     }
+
+    SelectAdd (){
+        return cy.get("#selectOperationDropdown").select("Add")
+    }
+
+    SelectSubtract (){
+        return cy.get("#selectOperationDropdown").select("Subtract")
+    }
+
+    SelectMultiply (){
+        return cy.get("#selectOperationDropdown").select("Multiply")
+    }
+
+    SelectDivide (){
+        return cy.get("#selectOperationDropdown").select("Divide")
+    }
 }
 
 export default Homepage
