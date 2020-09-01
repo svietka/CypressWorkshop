@@ -4,6 +4,8 @@ import HomeworkPage from '../../page_objects/HomeworkPage/HomeworkPage.js'
 var homeworkPage = new HomeworkPage
 
 const builds = ['Prototype', 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+// 0 - not checked ; 1 - checked 
 const integersOnly = [0, 1]
 
 beforeEach('Executes before each test', ()=>{
@@ -95,7 +97,7 @@ integersOnly.forEach((integer) => {
 
 //CONCATENATE
 builds.forEach((build) =>{
-    it(`Concatinates corectly for ${build}`, ()=>{
+    it.only(`Concatinates corectly for ${build}`, ()=>{
         homeworkPage.getBuildDropdown().select(`${build}`)
         homeworkPage.getNumberOneField().type('4b')
         homeworkPage.getNumberTwoField().type('1aa2')
@@ -141,7 +143,7 @@ builds.forEach((build) =>{
 })
 
 builds.forEach((build) =>{
-    it(`Should throw error message when trying to subtract letters in field two for build ${build}`, ()=>{
+    it.only(`Should throw error message when trying to subtract letters in field two for build ${build}`, ()=>{
         homeworkPage.getBuildDropdown().select(`${build}`)
         homeworkPage.getNumberOneField().type('4')
         homeworkPage.getNumberTwoField().type('2b')
