@@ -1,4 +1,4 @@
-import calculator from "../../page_object/Calculator/CalculatorPlugin.js"
+import calculator from "../../PageObjects/Calculator/CalculatorPlugin.js"
 /// <reference types="cypress" />
 
 beforeEach("Executes before each test",()=>{
