@@ -49,14 +49,14 @@ for(let l = 0; l < first_numbers.length; l++){
                 // Test run.
                 it("selects build mode \'" + build_modes[i] + "\' and performs two number operation \'" + operation_choices[j] + "\' " + is_integer_text, () => {
                     calculator.getClearButton().click();
-                    calculator.getFirstNumberField().clear();
-                    calculator.getSecondNumberField().clear();
 
-                    calculator.setBuildMode(build_modes[i]);
-                    calculator.setOperationChoice(operation_choices[j]);
-                    calculator.setIsResultInteger(is_integer_modes[k]);
+                    calculator.setBuildMode(test_build_mode);
+                    calculator.setOperationChoice(test_operation_choice);
+                    calculator.setIsResultInteger(test_is_integer_result);
 
                     calculator.getBuildDropdown().select(calculator.getBuilMode());
+                    calculator.getFirstNumberField().clear();
+                    calculator.getSecondNumberField().clear();
                     calculator.getFirstNumberField().type(calculator.getFirstNumber());
                     calculator.getSecondNumberField().type(calculator.getSecondNumber());
                     calculator.getOperationDropdown().select(calculator.getOperationChoice());
@@ -104,14 +104,14 @@ for(let i = 0; i < demo_tests.length; i++){
 
     it.only("selects build mode \'" + test_build_mode + "\' and performs two number operation \'" + test_operation_choice + "\' " + is_integer_text, () => {
         calculator.getClearButton().click();
-        calculator.getFirstNumberField().clear();
-        calculator.getSecondNumberField().clear();
 
         calculator.setBuildMode(test_build_mode);
         calculator.setOperationChoice(test_operation_choice);
         calculator.setIsResultInteger(test_is_integer_result);
 
         calculator.getBuildDropdown().select(calculator.getBuilMode());
+        calculator.getFirstNumberField().clear();
+        calculator.getSecondNumberField().clear();
         calculator.getFirstNumberField().type(calculator.getFirstNumber());
         calculator.getSecondNumberField().type(calculator.getSecondNumber());
         calculator.getOperationDropdown().select(calculator.getOperationChoice());
