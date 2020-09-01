@@ -19,6 +19,9 @@ class HomeworkPage{
     }
     getAnswerField(){
         return cy.get('#numberAnswerField')
-    }   
+    }      
+    getErrorField(){
+        return cy.get('#errorMsgField')
+    }  
 }
 export default HomeworkPage

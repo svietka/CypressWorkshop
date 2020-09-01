@@ -113,7 +113,7 @@ builds.forEach((build) =>{
         homeworkPage.getNumberTwoField().type('2')
         homeworkPage.getOperationDropdown().select('Add')
         homeworkPage.getCalculateButton().click()
-        cy.get('#errorMsgField').contains('Number 1 is not a number')           
+        homeworkPage.getErrorField().contains('Number 1 is not a number')           
     })
 })
 
@@ -124,7 +124,7 @@ builds.forEach((build) =>{
         homeworkPage.getNumberTwoField().type('2b')
         homeworkPage.getOperationDropdown().select('Add')
         homeworkPage.getCalculateButton().click()
-        cy.get('#errorMsgField').contains('Number 2 is not a number')           
+        homeworkPage.getErrorField().contains('Number 2 is not a number')           
     })
 })
 
@@ -136,7 +136,7 @@ builds.forEach((build) =>{
         homeworkPage.getNumberTwoField().type('2')
         homeworkPage.getOperationDropdown().select('Subtract')
         homeworkPage.getCalculateButton().click()
-        cy.get('#errorMsgField').contains('Number 1 is not a number')           
+        homeworkPage.getErrorField().contains('Number 1 is not a number')           
     })
 })
 
@@ -147,7 +147,7 @@ builds.forEach((build) =>{
         homeworkPage.getNumberTwoField().type('2b')
         homeworkPage.getOperationDropdown().select('Subtract')
         homeworkPage.getCalculateButton().click()
-        cy.get('#errorMsgField').contains('Number 2 is not a number')           
+        homeworkPage.getErrorField().contains('Number 2 is not a number')           
     })
 })
 
@@ -159,7 +159,7 @@ builds.forEach((build) =>{
         homeworkPage.getNumberTwoField().type('2')
         homeworkPage.getOperationDropdown().select('Multiply')
         homeworkPage.getCalculateButton().click()
-        cy.get('#errorMsgField').contains('Number 1 is not a number')           
+        homeworkPage.getErrorField().contains('Number 1 is not a number')           
     })
 })
 
@@ -170,7 +170,7 @@ builds.forEach((build) =>{
         homeworkPage.getNumberTwoField().type('2b')
         homeworkPage.getOperationDropdown().select('Multiply')
         homeworkPage.getCalculateButton().click()
-        cy.get('#errorMsgField').contains('Number 2 is not a number')           
+        homeworkPage.getErrorField().contains('Number 2 is not a number')           
     })
 })
 
@@ -182,7 +182,7 @@ builds.forEach((build) =>{
         homeworkPage.getNumberTwoField().type('2')
         homeworkPage.getOperationDropdown().select('Divide')
         homeworkPage.getCalculateButton().click()
-        cy.get('#errorMsgField').contains('Number 1 is not a number')           
+        homeworkPage.getErrorField().contains('Number 1 is not a number')           
     })
 })
 
@@ -193,7 +193,7 @@ builds.forEach((build) =>{
         homeworkPage.getNumberTwoField().type('2b')
         homeworkPage.getOperationDropdown().select('Divide')
         homeworkPage.getCalculateButton().click()
-        cy.get('#errorMsgField').contains('Number 2 is not a number')          
+        homeworkPage.getErrorField().contains('Number 2 is not a number')          
     })
 })
 
@@ -205,7 +205,7 @@ builds.forEach((build) =>{
         homeworkPage.getNumberTwoField().type('2')
         homeworkPage.getOperationDropdown().select('Concatenate')
         homeworkPage.getCalculateButton().click()
-        cy.get('#errorMsgField').should("not.be.visible")           
+        homeworkPage.getErrorField().should("not.be.visible")           
     })
 })
 
@@ -216,7 +216,7 @@ builds.forEach((build) =>{
         homeworkPage.getNumberTwoField().type('2b')
         homeworkPage.getOperationDropdown().select('Concatenate')
         homeworkPage.getCalculateButton().click()
-        cy.get('#errorMsgField').should("not.be.visible")        
+        homeworkPage.getErrorField().should("not.be.visible")        
     })
 })
 
