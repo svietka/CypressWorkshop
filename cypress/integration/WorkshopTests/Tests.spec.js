@@ -8,7 +8,8 @@ var homepage = new Homepage()
 //atlikti pries kiekviena testa, nereikia pasikeitus url visur ji keisti
 beforeEach("Executes before each test", ()=>{
     // cy.visit - naviguoti i psl
-    cy.visit("baseURL")
+    // cypress.json psl -> {"baseURL": "https://www.duckduckgo.com"}
+    cy.visit("https://www.duckduckgo.com")
 })
 
 // testai prasideda su it zodeliu (moka specifika)
@@ -76,3 +77,30 @@ it("All search results have to have in their title a word panda",()=>{
     homepage.getSearchInputField().type("!wiki{enter}")
    // cy.get("#search_form_input_homepage").type("!wiki{enter}")
 })
+
+const sizes = ['iphone-6', 'ipad-2', [1024, 768]]
+ sizes.forEach((size) => {
+ it(`Should display logo on ${size} screen`, () => {
+ if (Cypress._.isArray(size)) {
+ cy.viewport(size[0], size[1])
+ } else {
+ cy.viewport(size)
+ }
+ //cy.visit("www.duckduckgo.com")
+ cy.get('#search_form_input_homepage').type("stopwatch")
+ cy.get('#search_button_homepage').click({ force: true });
+ })
+ })
+
+ describe('should generate secure passwords', () => {
+    [8, 32, 64].forEach((passwordLenght) => {
+    it.only('generates password with length: ' + passwordLenght, () => {
+   // cy.visit("www.duckduckgo.com")
+    cy.get('#search_form_homepage').type("password " + passwordLenght)
+    cy.get('#search_button_homepage').click();
+    cy.get('.c-base__title').then(($title) => {
+    cy.get($title).invoke('text').its('length').should('be.eq', passwordLenght)
+    })
+    })
+    })
+   })
