@@ -5,11 +5,6 @@ beforeEach("Executes before each tests",()=>{
     cy.visit("https://testsheepnz.github.io/BasicCalculator")
  })
 
-//buildVersions = () => cy.get('#selectBuild')
-//let buildVersions = ["Prototype", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
-
-//BuildDropDownList = () => cy.get('#selectBuild')
-
 it("Add", ()=>{
     cy.get('#selectBuild').select("2")
     cy.get('#number1Field').type("0")
