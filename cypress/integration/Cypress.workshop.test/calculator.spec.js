@@ -60,13 +60,9 @@ Builds.forEach((Build) => {
 
 
 
-
-
-
-
-
-
 /*
+
+Attempt to make everything in one test, but could not add if statment
 Builds.forEach((Build) => {
     Operations.forEach((Operation) => {
 
