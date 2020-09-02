@@ -1,8 +1,7 @@
-/// <reference types="cypress" />
+/// <reference types="cypress"/>
 
 // variables
 const Builds = ['0','1','2','3','4','5','6','7','8','9']
-const Operations = ['Add','Subtract','Multiply','Divide','Concatenate']
 let Number1 = 2
 let Number2 = 2
 
@@ -63,6 +62,9 @@ Builds.forEach((Build) => {
 /*
 
 Attempt to make everything in one test, but could not add if statment
+
+const Operations = ['Add','Subtract','Multiply','Divide','Concatenate']
+
 Builds.forEach((Build) => {
     Operations.forEach((Operation) => {
 
