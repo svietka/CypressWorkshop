@@ -5,14 +5,13 @@ The most common errors:
 - TS4.5 : The build number, where the error occured - 2, 3, 7, 8, 9
 - TS5.1 : The build number, where the error occured - 1, 2, 4, 7, 8, 9
 
-Used variables for testing (in pairs looking from a column perspective, the empty spaces mean ' '):
-firstNumber  = 8; 8;   8;
-secondNumber = 3;  ;   2;
-firstSymbol  = C;  ; &$@;
-secondSymbol = P; P;   P;
-
-Considering all of the combined tests the only build that I was not able to break is number 5.
-
 In the Prototype build the 'Divide by zero!' error breaks the calculator page and the only way to continue using the calculator
 is either to refresh the browser, or to change the build.
 I considered this fact as a 'feature' and wrote testing procedures accordingly.
+
+Similarities with [https://github.com/MartynasLun/CypressWorkshop/pull/72/files]:
+    Some fragments of code look almost alike (which is kind of interesting in this perspective).
+    As of now most of the used operations have changed in my code according to the comments. But reverting the changes would result in
+    the code being almost alike.
+    I don't know entirely if this is the key point that I had to find comparing these two files, but it is the only conclusion I can make.
+    Variable names match, some key fragments match, class names and function names match.

@@ -1,243 +1,140 @@
 /// <reference types="cypress" />
 
 import Calculator from '../../page_objects/calculator.js'
+import numberAnswerArray from '../Homework/numbers.js'
 
 var calculator = new Calculator
 
 // Build version names for the forEach cycle.
 var buildVersions = ["Prototype", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
-// Numbers for the TS1, TS2, TS4 and TS6 phases. Can be a ' ', but no symbols.
-var firstNumber = 8.5;
-var secondNumber = 2.2;
-
-// Symbols for the TS5 phase. One of them must be a symbol, not a ' '.
-var firstSymbol = ' ';
-var secondSymbol = 'P';
-
 // Variables for error messages.
-var errorMessage;
 var divideByZeroError = 'Divide by zero error!';
 
-// Defining the error message based on the selected symbols.
-if (typeof firstSymbol === "string" && firstSymbol != ' ') {
-    errorMessage = 'Number 1 is not a number';
-} else if (typeof secondSymbol === "string") {
-    errorMessage = 'Number 2 is not a number';
-}
+numberAnswerArray.forEach((numberArray) => {
 
-buildVersions.forEach((buildVersion) => {
+    buildVersions.forEach((buildVersion) => {
 
-    [true, false].forEach((integersOnly) => {
-
-        // Operations for answer checking.
-        var addOperationResult = +firstNumber + +secondNumber;
-        var subtractOperationResult = firstNumber - secondNumber;
-        var multiplyOperationResult = firstNumber * secondNumber;
-        var divideOperationResult = firstNumber / secondNumber;
-        var concatenateOperationResult = firstNumber.toString() + secondNumber.toString();
-
-        // If the Integers only checkbox is checked then it makes alterations for the following answers.
-        if (integersOnly) {
-            addOperationResult = addOperationResult | 0;
-            subtractOperationResult = subtractOperationResult | 0;
-            multiplyOperationResult = multiplyOperationResult | 0;
-            divideOperationResult = divideOperationResult | 0;
+        // Defining the error message based on the selected symbols.
+        if (typeof numberArray.firstSymbol === "string" && numberArray.firstSymbol != ' ') {
+            var errorMessage = 'Number 1 is not a number';
+        } else if (typeof numberArray.secondSymbol === "string") {
+            var errorMessage = 'Number 2 is not a number';
         }
-        
+
         describe(formDescribeSentence("1", buildVersion, "Calculator functionality testing with numbers"), () => {
 
-            beforeSectionForPageAndIntegers(integersOnly, true, buildVersion);
-        
-            it.only(formItSentence("1", "1", "Add", "numbers", firstNumber, secondNumber, integersOnly, "and returns the answer " + addOperationResult), () => {
-                calculator.getFirstNumberField().clear()
-                calculator.getSecondNumberField().clear()
-                calculator.getFirstNumberField().type(firstNumber)
-                calculator.getSecondNumberField().type(secondNumber)
-                calculator.getOperationDropDownList().select('Add')
-                calculator.getCalculateButton().click()
-                calculator.getAnswerField().should('have.value', addOperationResult)
+            beforeSectionForPageAndIntegers(numberArray.integersOnly, true, buildVersion);
+            beforeEachClearBothInputFields();
+
+            it.only(formItSentence("1", "1", "Add", "numbers", numberArray.firstNumber, numberArray.secondNumber, numberArray.integersOnly, "and returns the answer " + numberArray.addOperationResult), () => {
+                performCalculatorOperation(numberArray.firstNumber, numberArray.secondNumber, 'Add')
+                calculator.answerField().should('have.value', numberArray.addOperationResult)
             })
-            
-            it.only(formItSentence("1", "2", "Subtract", "numbers", firstNumber, secondNumber, integersOnly, "and returns the answer " + subtractOperationResult), () => {
-                calculator.getFirstNumberField().clear()
-                calculator.getSecondNumberField().clear()
-                calculator.getFirstNumberField().type(firstNumber)
-                calculator.getSecondNumberField().type(secondNumber)
-                calculator.getOperationDropDownList().select('Subtract')
-                calculator.getCalculateButton().click()
-                calculator.getAnswerField().should('have.value', subtractOperationResult)
+
+            it.only(formItSentence("1", "2", "Subtract", "numbers", numberArray.firstNumber, numberArray.secondNumber, numberArray.integersOnly, "and returns the answer " + numberArray.subtractOperationResult), () => {
+                performCalculatorOperation(numberArray.firstNumber, numberArray.secondNumber, 'Subtract')
+                calculator.answerField().should('have.value', numberArray.subtractOperationResult)
             })
-            
-            it(formItSentence("1", "3", "Multiply", "numbers", firstNumber, secondNumber, integersOnly, "and returns the answer " + multiplyOperationResult), () => {
-                calculator.getFirstNumberField().clear()
-                calculator.getSecondNumberField().clear()
-                calculator.getFirstNumberField().type(firstNumber)
-                calculator.getSecondNumberField().type(secondNumber)
-                calculator.getOperationDropDownList().select('Multiply')
-                calculator.getCalculateButton().click()
-                calculator.getAnswerField().should('have.value', multiplyOperationResult)
+
+            it(formItSentence("1", "3", "Multiply", "numbers", numberArray.firstNumber, numberArray.secondNumber, numberArray.integersOnly, "and returns the answer " + numberArray.multiplyOperationResult), () => {
+                performCalculatorOperation(numberArray.firstNumber, numberArray.secondNumber, 'Multiply')
+                calculator.answerField().should('have.value', numberArray.multiplyOperationResult)
             })
-            
-            it.only(formItSentence("1", "4", "Divide", "numbers", firstNumber, secondNumber, integersOnly, "and returns the answer " + divideOperationResult) + " or gets the '" + divideByZeroError + "' error", () => {
-                calculator.getFirstNumberField().clear()
-                calculator.getSecondNumberField().clear()
-                calculator.getFirstNumberField().type(firstNumber)
-                calculator.getSecondNumberField().type(secondNumber)
-                calculator.getOperationDropDownList().select('Divide')
-                calculator.getCalculateButton().click()
-                
-                if (secondNumber === 0 || +secondNumber + 0 === 0) {
-                    calculator.getErrorField().contains(divideByZeroError)
+
+            it.only(formItSentence("1", "4", "Divide", "numbers", numberArray.firstNumber, numberArray.secondNumber, numberArray.integersOnly, "and returns the answer " + numberArray.divideOperationResult) + " or gets the '" + divideByZeroError + "' error", () => {
+                performCalculatorOperation(numberArray.firstNumber, numberArray.secondNumber, 'Divide')
+
+                if (numberArray.secondNumber === 0 || +numberArray.secondNumber + 0 === 0) {
+                    calculator.errorField().contains(divideByZeroError)
                     calculator.visitInitialPage()
-                    calculator.getBuildDropDownList().select(buildVersion)
-        
-                    if (integersOnly) {
-                        calculator.getIntegerSelection().click();
+                    calculator.buildDropDownList().select(buildVersion)
+
+                    if (numberArray.integersOnly) {
+                        calculator.integerSelection().click();
                     }
                 } else {
-                    calculator.getAnswerField().should('have.value', divideOperationResult)
+                    calculator.answerField().should('have.value', numberArray.divideOperationResult)
                 }
             })
-            
-            it.only(formItSentence("1", "5", "Concatenate", "numbers", firstNumber, secondNumber, integersOnly, "and returns the answer " + concatenateOperationResult), () => {
-                calculator.getFirstNumberField().clear()
-                calculator.getSecondNumberField().clear()
-                calculator.getFirstNumberField().type(firstNumber)
-                calculator.getSecondNumberField().type(secondNumber)
-                calculator.getOperationDropDownList().select('Concatenate')
-                calculator.getCalculateButton().click()
-                calculator.getAnswerField().should('have.value', concatenateOperationResult)
+
+            it.only(formItSentence("1", "5", "Concatenate", "numbers", numberArray.firstNumber, numberArray.secondNumber, numberArray.integersOnly, "and returns the answer " + numberArray.concatenateOperationResult), () => {
+                performCalculatorOperation(numberArray.firstNumber, numberArray.secondNumber, 'Concatenate')
+                calculator.answerField().should('have.value', numberArray.concatenateOperationResult)
             })
         })
-        
+
         describe(formDescribeSentence("2", buildVersion, "Calculator error checking with numbers and symbols"), () => {
 
-            beforeSectionForPageAndIntegers(integersOnly, true, buildVersion);
-        
-            it.only(formItSentence("2", "1", "Add", "symbols", firstSymbol, secondSymbol, integersOnly, "and returns the following error message - " + errorMessage), () => {
-                calculator.getFirstNumberField().clear()
-                calculator.getSecondNumberField().clear()
-                calculator.getFirstNumberField().type(firstSymbol)
-                calculator.getSecondNumberField().type(secondSymbol)
-                calculator.getOperationDropDownList().select('Add')
-                calculator.getCalculateButton().click()
-                calculator.getErrorField().contains(errorMessage)
-                calculator.getAnswerField().should('be.empty')
+            beforeSectionForPageAndIntegers(numberArray.integersOnly, true, buildVersion);
+            beforeEachClearBothInputFields();
+
+            it.only(formItSentence("2", "1", "Add", "symbols", numberArray.firstSymbol, numberArray.secondSymbol, numberArray.integersOnly, "and returns the following error message - " + errorMessage), () => {
+                performCalculatorOperation(numberArray.firstSymbol, numberArray.secondSymbol, 'Add')
+                checkErrorField(errorMessage)
             })
-            
-            it(formItSentence("2", "2", "Subtract", "symbols", firstSymbol, secondSymbol, integersOnly, "and returns the following error message - " + errorMessage), () => {
-                calculator.getFirstNumberField().clear()
-                calculator.getSecondNumberField().clear()
-                calculator.getFirstNumberField().type(firstSymbol)
-                calculator.getSecondNumberField().type(secondSymbol)
-                calculator.getOperationDropDownList().select('Subtract')
-                calculator.getCalculateButton().click()
-                calculator.getErrorField().contains(errorMessage)
-                calculator.getAnswerField().should('be.empty')
+
+            it(formItSentence("2", "2", "Subtract", "symbols", numberArray.firstSymbol, numberArray.secondSymbol, numberArray.integersOnly, "and returns the following error message - " + errorMessage), () => {
+                performCalculatorOperation(numberArray.firstSymbol, numberArray.secondSymbol, 'Subtract')
+                checkErrorField(errorMessage)
             })
-            
-            it(formItSentence("2", "3", "Multiply", "symbols", firstSymbol, secondSymbol, integersOnly, "and returns the following error message - " + errorMessage), () => {
-                calculator.getFirstNumberField().clear()
-                calculator.getSecondNumberField().clear()
-                calculator.getFirstNumberField().type(firstSymbol)
-                calculator.getSecondNumberField().type(secondSymbol)
-                calculator.getOperationDropDownList().select('Multiply')
-                calculator.getCalculateButton().click()
-                calculator.getErrorField().contains(errorMessage)
-                calculator.getAnswerField().should('be.empty')
+
+            it(formItSentence("2", "3", "Multiply", "symbols", numberArray.firstSymbol, numberArray.secondSymbol, numberArray.integersOnly, "and returns the following error message - " + errorMessage), () => {
+                performCalculatorOperation(numberArray.firstSymbol, numberArray.secondSymbol, 'Multiply')
+                checkErrorField(errorMessage)
             })
-            
-            it(formItSentence("2", "4", "Divide", "symbols", firstSymbol, secondSymbol, integersOnly, "and returns the following error message - " + errorMessage), () => {
-                calculator.getFirstNumberField().clear()
-                calculator.getSecondNumberField().clear()
-                calculator.getFirstNumberField().type(firstSymbol)
-                calculator.getSecondNumberField().type(secondSymbol)
-                calculator.getOperationDropDownList().select('Divide')
-                calculator.getCalculateButton().click()
-                calculator.getErrorField().contains(errorMessage)
-                calculator.getAnswerField().should('be.empty')
+
+            it(formItSentence("2", "4", "Divide", "symbols", numberArray.firstSymbol, numberArray.secondSymbol, numberArray.integersOnly, "and returns the following error message - " + errorMessage), () => {
+                performCalculatorOperation(numberArray.firstSymbol, numberArray.secondSymbol, 'Divide')
+                checkErrorField(errorMessage)
             })
         })
-        
+
         describe.only(formDescribeSentence("3", buildVersion, "Calculator 'Clear' button functionality testing with numbers"), () => {
 
-            beforeSectionForPageAndIntegers(integersOnly, false, buildVersion);
-        
+            beforeSectionForPageAndIntegers(numberArray.integersOnly, false, buildVersion);
+            beforeEachClearBothInputFields();
+
             beforeEach("Selects the 'Integers only' marker based on the integersOnly value", () => {
-                if (integersOnly) {
-                    calculator.getIntegerSelection().click();
+                if (numberArray.integersOnly) {
+                    calculator.integerSelection().click();
                 }
             })
-        
-            it(formItSentence("3", "1", "Add", "numbers", firstNumber, secondNumber, integersOnly, "and clears the answer field"), () => {
-                calculator.getFirstNumberField().clear()
-                calculator.getSecondNumberField().clear()
-                calculator.getFirstNumberField().type(firstNumber)
-                calculator.getSecondNumberField().type(secondNumber)
-                calculator.getOperationDropDownList().select('Add')
-                calculator.getCalculateButton().click()
-                calculator.getClearButton().click()
-                calculator.getAnswerField().should('be.empty')
-                calculator.getIntegerSelection().should('not.be.checked')
+
+            it(formItSentence("3", "1", "Add", "numbers", numberArray.firstNumber, numberArray.secondNumber, numberArray.integersOnly, "and clears the answer field"), () => {
+                performCalculatorOperation(numberArray.firstNumber, numberArray.secondNumber, 'Add')
+                clearAndCheckAnswerField(false)
             })
-            
-            it(formItSentence("3", "2", "Subtract", "numbers", firstNumber, secondNumber, integersOnly, "and clears the answer field"), () => {
-                calculator.getFirstNumberField().clear()
-                calculator.getSecondNumberField().clear()
-                calculator.getFirstNumberField().type(firstNumber)
-                calculator.getSecondNumberField().type(secondNumber)
-                calculator.getOperationDropDownList().select('Subtract')
-                calculator.getCalculateButton().click()
-                calculator.getClearButton().click()
-                calculator.getAnswerField().should('be.empty')
-                calculator.getIntegerSelection().should('not.be.checked')
+
+            it(formItSentence("3", "2", "Subtract", "numbers", numberArray.firstNumber, numberArray.secondNumber, numberArray.integersOnly, "and clears the answer field"), () => {
+                performCalculatorOperation(numberArray.firstNumber, numberArray.secondNumber, 'Subtract')
+                clearAndCheckAnswerField(false)
             })
-            
-            it(formItSentence("3", "3", "Multiply", "numbers", firstNumber, secondNumber, integersOnly, "and clears the answer field"), () => {
-                calculator.getFirstNumberField().clear()
-                calculator.getSecondNumberField().clear()
-                calculator.getFirstNumberField().type(firstNumber)
-                calculator.getSecondNumberField().type(secondNumber)
-                calculator.getOperationDropDownList().select('Multiply')
-                calculator.getCalculateButton().click()
-                calculator.getClearButton().click()
-                calculator.getAnswerField().should('be.empty')
-                calculator.getIntegerSelection().should('not.be.checked')
+
+            it(formItSentence("3", "3", "Multiply", "numbers", numberArray.firstNumber, numberArray.secondNumber, numberArray.integersOnly, "and clears the answer field"), () => {
+                performCalculatorOperation(numberArray.firstNumber, numberArray.secondNumber, 'Multiply')
+                clearAndCheckAnswerField(false)
             })
-            
-            it(formItSentence("3", "4", "Divide", "numbers", firstNumber, secondNumber, integersOnly, "and clears the answer field or gets the '" + divideByZeroError + "' error"), () => {
-                calculator.getFirstNumberField().clear()
-                calculator.getSecondNumberField().clear()
-                calculator.getFirstNumberField().type(firstNumber)
-                calculator.getSecondNumberField().type(secondNumber)
-                calculator.getOperationDropDownList().select('Divide')
-                calculator.getCalculateButton().click()
-        
-                if (secondNumber === 0 || +secondNumber + 0 === 0) {
-                    calculator.getErrorField().contains(divideByZeroError)
+
+            it(formItSentence("3", "4", "Divide", "numbers", numberArray.firstNumber, numberArray.secondNumber, numberArray.integersOnly, "and clears the answer field or gets the '" + divideByZeroError + "' error"), () => {
+                performCalculatorOperation(numberArray.firstNumber, numberArray.secondNumber, 'Divide')
+
+                if (numberArray.secondNumber === 0 || +numberArray.secondNumber + 0 === 0) {
+                    calculator.errorField().contains(divideByZeroError)
                     calculator.visitInitialPage()
-                    calculator.getBuildDropDownList().select(buildVersion)
-        
-                    if (integersOnly) {
-                        calculator.getIntegerSelection().click();
+                    calculator.buildDropDownList().select(buildVersion)
+
+                    if (numberArray.integersOnly) {
+                        calculator.integerSelection().click();
                     }
                 } else {
-                    calculator.getClearButton().click()
-                    calculator.getAnswerField().should('be.empty')
-                    calculator.getIntegerSelection().should('not.be.checked')
+                    clearAndCheckAnswerField(false)
                 }
             })
-            
-            it(formItSentence("3", "5", "Concatenate", "numbers", firstNumber, secondNumber, integersOnly, "and clears the answer field"), () => {
-                calculator.getFirstNumberField().clear()
-                calculator.getSecondNumberField().clear()
-                calculator.getFirstNumberField().type(firstNumber)
-                calculator.getSecondNumberField().type(secondNumber)
-                calculator.getOperationDropDownList().select('Concatenate')
-                calculator.getCalculateButton().click()
-                calculator.getClearButton().click()
-                calculator.getAnswerField().should('be.empty')
+
+            it(formItSentence("3", "5", "Concatenate", "numbers", numberArray.firstNumber, numberArray.secondNumber, numberArray.integersOnly, "and clears the answer field"), () => {
+                performCalculatorOperation(numberArray.firstNumber, numberArray.secondNumber, 'Concatenate')
+                clearAndCheckAnswerField(true)
             })
         })
     })
@@ -246,12 +143,41 @@ buildVersions.forEach((buildVersion) => {
 function beforeSectionForPageAndIntegers(integersOnly, integerValidation, buildVersion) {
     before("Selects the 'Integers only' marker based on the integersOnly value and visits the initial page", () => {
         calculator.visitInitialPage()
-        calculator.getBuildDropDownList().select(buildVersion)
+        calculator.buildDropDownList().select(buildVersion)
 
         if (integersOnly && integerValidation) {
-            calculator.getIntegerSelection().click()
+            calculator.integerSelection().click()
         }
     })
+}
+
+function beforeEachClearBothInputFields() {
+    beforeEach("Clears the first and the second input fields", () => {
+        calculator.firstNumberField().clear()
+        calculator.secondNumberField().clear()
+    })
+}
+
+function performCalculatorOperation(firstNumber, secondNumber, operationName) {
+    calculator.firstNumberField().type(firstNumber)
+    calculator.secondNumberField().type(secondNumber)
+    calculator.operationDropDownList().select(operationName)
+    calculator.calculateButton().click()
+}
+
+function checkErrorField(errorMessage) {
+    calculator.errorField().contains(errorMessage)
+    calculator.answerField().should('be.empty')
+}
+
+function clearAndCheckAnswerField(concatenateOperation) {
+
+    calculator.clearButton().click()
+    calculator.answerField().should('be.empty')
+    
+    if (!concatenateOperation) {
+        calculator.integerSelection().should('not.be.checked')
+    }
 }
 
 function formDescribeSentence(describeNumber, buildVersion, sideNote) {
@@ -259,5 +185,10 @@ function formDescribeSentence(describeNumber, buildVersion, sideNote) {
 }
 
 function formItSentence(describeNumber, testNumber, operationName, valueName, firstNumber, secondNumber, integersOnly, answer) {
-    return "TS" + describeNumber + "." + testNumber + ": Performs the operation '"+ operationName + "' with " + valueName + " " + firstNumber + " and " + secondNumber + " (Integers only set to - " + integersOnly + ") " + answer;
+    if (operationName === 'Concatenate') {
+        return "TS" + describeNumber + "." + testNumber + ": Performs the operation '" + operationName + "' with " + valueName + " " + firstNumber + " and " + secondNumber + " " + answer;
+    }
+    else {
+        return "TS" + describeNumber + "." + testNumber + ": Performs the operation '" + operationName + "' with " + valueName + " " + firstNumber + " and " + secondNumber + " (Integers only set to - " + integersOnly + ") " + answer;
+    }
 }

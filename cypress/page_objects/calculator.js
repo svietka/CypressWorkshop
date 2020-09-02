@@ -2,23 +2,23 @@ class Calculator {
 
     visitInitialPage = () => cy.visit("https://testsheepnz.github.io/BasicCalculator")
 
-    getBuildDropDownList = () => cy.get('#selectBuild')
+    buildDropDownList = () => cy.get('#selectBuild')
 
-    getFirstNumberField = () => cy.get('#number1Field')
+    firstNumberField = () => cy.get('#number1Field')
 
-    getSecondNumberField = () => cy.get('#number2Field')
+    secondNumberField = () => cy.get('#number2Field')
 
-    getOperationDropDownList = () => cy.get('#selectOperationDropdown')
+    operationDropDownList = () => cy.get('#selectOperationDropdown')
 
-    getCalculateButton = () => cy.get('#calculateButton')
+    calculateButton = () => cy.get('#calculateButton')
 
-    getAnswerField = () => cy.get('#numberAnswerField')
+    answerField = () => cy.get('#numberAnswerField')
 
-    getIntegerSelection = () => cy.get('#integerSelect')
+    integerSelection = () => cy.get('#integerSelect')
 
-    getClearButton = () => cy.get('#clearButton')
+    clearButton = () => cy.get('#clearButton')
 
-    getErrorField = () => cy.get('#errorMsgField')
+    errorField = () => cy.get('#errorMsgField')
 }
 
 export default Calculator
