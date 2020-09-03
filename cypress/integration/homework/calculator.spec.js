@@ -17,10 +17,11 @@ var actionDropDown = "#selectOperationDropdown";
 describe('Calculator Homepage', () => {
     describe('Addition', () => {
         it.only("Test addition on every version of a calculator", () => {
-            context('Build ', () => {
-                cy.visit(website)
-                cy.get(actionDropDown).select("Add")
-                for (var i = 1; i <= 3; i++) {
+
+            cy.visit(website)
+            cy.get(actionDropDown).select("Add")
+            for (var i = 1; i <= 9; i++) {
+                context(`Build ${i}`, () => {
                     cy.get(buildDropDown).select(i.toString());
                     homePage.checkIfFieldsEnabled(numberField1)
                     homePage.checkIfFieldsEnabled(numberField2)
@@ -35,17 +36,20 @@ describe('Calculator Homepage', () => {
                     homePage.checkAnswer('2706')
                     homePage.enterFieldsWith("2147483647", "1000", "Add")
                     homePage.checkAnswer('2147484647')
+                    homePage.checkTestClearButton();
+                    homePage.TestIntegersOnlyCheckbox("Add");
+                })
+            }
 
-                }
-            })
         })
     })
     describe('Subtraction', () => {
         it.only("Test subtraction on every version of a calculator", () => {
-            context('Build ', () => {
-                cy.visit(website)
-                cy.get(actionDropDown).select("Subtract")
-                for (var i = 1; i <= 3; i++) {
+
+            cy.visit(website)
+            cy.get(actionDropDown).select("Subtract")
+            for (var i = 1; i <= 9; i++) {
+                context(`Build ${i}`, () => {
                     cy.get(buildDropDown).select(i.toString());
                     homePage.checkIfFieldsEnabled(numberField1)
                     homePage.checkIfFieldsEnabled(numberField2)
@@ -60,17 +64,20 @@ describe('Calculator Homepage', () => {
                     homePage.checkAnswer('3306')
                     homePage.enterFieldsWith("2147483647", "1000", "Subtract")
                     homePage.checkAnswer('2147482647')
+                    homePage.checkTestClearButton();
+                    homePage.TestIntegersOnlyCheckbox("Subtract");
+                })
+            }
 
-                }
-            })
         })
     })
     describe('Multiply', () => {
         it.only("Test multiplication on every version of a calculator", () => {
-            context('Build ', () => {
-                cy.visit(website)
-                cy.get(actionDropDown).select("Multiply")
-                for (var i = 1; i <= 3; i++) {
+
+            cy.visit(website)
+            cy.get(actionDropDown).select("Multiply")
+            for (var i = 1; i <= 9; i++) {
+                context(`Build ${i}`, () => {
                     cy.get(buildDropDown).select(i.toString());
                     homePage.checkIfFieldsEnabled(numberField1)
                     homePage.checkIfFieldsEnabled(numberField2)
@@ -85,17 +92,20 @@ describe('Calculator Homepage', () => {
                     homePage.checkAnswer('-901800')
                     homePage.enterFieldsWith("2147483647", "1000", "Multiply")
                     homePage.checkAnswer('2147483647000')
+                    homePage.checkTestClearButton();
+                    homePage.TestIntegersOnlyCheckbox("Multiply");
+                })
+            }
 
-                }
-            })
         })
     })
     describe('Divide', () => {
         it.only("Test division on every version of a calculator", () => {
-            context('Build ', () => {
-                cy.visit(website)
-                cy.get(actionDropDown).select("Divide")
-                for (var i = 1; i <= 3; i++) {
+
+            cy.visit(website)
+            cy.get(actionDropDown).select("Divide")
+            for (var i = 1; i <= 9; i++) {
+                context(`Build ${i}`, () => {
                     cy.get(buildDropDown).select(i.toString());
                     homePage.checkIfFieldsEnabled(numberField1)
                     homePage.checkIfFieldsEnabled(numberField2)
@@ -110,17 +120,20 @@ describe('Calculator Homepage', () => {
                     homePage.checkAnswer('-10.02')
                     homePage.enterFieldsWith("2147483647", "1000", "Divide")
                     homePage.checkAnswer('2147483.647')
+                    homePage.checkTestClearButton();
+                    homePage.TestIntegersOnlyCheckbox("Divide");
+                })
+            }
 
-                }
-            })
         })
     })
     describe('Concatenate', () => {
         it.only("Test concatenation on every version of a calculator", () => {
-            context('Build ', () => {
-                cy.visit(website)
-                cy.get(actionDropDown).select("Concatenate")
-                for (var i = 1; i <= 3; i++) {
+
+            cy.visit(website)
+            cy.get(actionDropDown).select("Concatenate")
+            for (var i = 1; i <= 9; i++) {
+                context(`Build ${i}`, () => {
                     cy.get(buildDropDown).select(i.toString());
                     homePage.checkIfFieldsEnabled(numberField1)
                     homePage.checkIfFieldsEnabled(numberField2)
@@ -135,10 +148,12 @@ describe('Calculator Homepage', () => {
                     homePage.checkAnswer('3006-300')
                     homePage.enterFieldsWith("2147483647", "1000", "Concatenate")
                     homePage.checkAnswer('21474836471000')
+                    homePage.checkTestClearButton();
+                    homePage.TestIntegersOnlyCheckbox("Concatenate");
+                })
+            }
 
-                }
-            })
+
         })
     })
 })
-
