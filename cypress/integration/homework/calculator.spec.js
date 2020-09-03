@@ -1,6 +1,6 @@
 // <reference types="Cypress" />
 
-import HomePage from './objektai/HomePage.js'
+import HomePage from './classes/HomePage.js'
 
 var homePage = new HomePage
 
