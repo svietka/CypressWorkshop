@@ -1,16 +1,19 @@
 class LandingPage {
-  firstNumberField = "#number1Field";
-  secondNumberField = "#number2Field";
-  buildDropdown = "#selectBuild";
-  calculateButton = "#calculateButton";
-  clearButton = "#clearButton";
-  operationsDropdown = "#selectOperationDropdown";
-  integerSelect = "#integerSelect";
-  answerField = "#numberAnswerField";
-  errorMsgField = "#errorMsgField";
-  concatTitle = "Concatenate";
-  divideByZeroError = "Divide by zero error!";
-  mathOperationTitles = ["Add", "Subtract", "Multiply", "Divide"];
+  firstNumberField = '#number1Field';
+  secondNumberField = '#number2Field';
+  buildDropdown = '#selectBuild';
+  calculateButton = '#calculateButton';
+  clearButton = '#clearButton';
+  operationsDropdown = '#selectOperationDropdown';
+  integerSelect = '#integerSelect';
+  answerField = '#numberAnswerField';
+  errorMsgField = '#errorMsgField';
+  addTitle = 'Add';
+  subtractTitle = 'Subtract';
+  multiplyTitle = 'Multiply';
+  divideTitle = 'Divide';
+  concatTitle = 'Concatenate';
+  divideByZeroError = 'Divide by zero error!';
 
   getFirstNumberField() {
     return cy.get(this.firstNumberField);
@@ -22,25 +25,6 @@ class LandingPage {
 
   getBuildDropdown() {
     return cy.get(this.buildDropdown);
-  }
-
-  getBuildDropdownOptions() {
-    return cy.get(this.buildDropdown).children();
-  }
-
-  getBuildDropdownOptions1() {
-    console.log(
-      cy
-        .document()
-        .getElementById(this.buildDropdown)
-        .getElementsByTagName("option")
-    );
-    cy.document()
-      .getElementById(this.buildDropdown)
-      .getElementsByTagName("option")
-      .array.map(element => {
-        return element.value();
-      });
   }
 
   getCalculateButton() {

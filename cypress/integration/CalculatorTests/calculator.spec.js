@@ -1,43 +1,50 @@
-import LandingPage from "../../page_objects/landingpage/landingpage.js";
-import * as utils from "../../utility_functions/utils.js";
+import LandingPage from '../../page_objects/landingpage/landingpage.js';
+import * as utils from '../../utility_functions/utils.js';
 /// <reference types="cypress" />
 
 let landingPage = new LandingPage();
+
 const builds = [...Array(10).keys()].map(String);
-const mathOperations = landingPage.mathOperationTitles;
-const randomNumbers = [
+const stringType = 'string';
+const positiveIntType = 'positive Integer';
+const negativeIntType = 'negative Integer';
+const positiveFloatType = 'positive Float';
+const negativeFloatType = 'negative Float';
+const zeroType = 'zero';
+
+const randomData = [
   {
-    number: utils.generateRandomPositiveInt, //dataFunction
-    numberType: "positiveInteger"
+    dataGenerator: utils.generateRandomPositiveInt,
+    dataType: positiveIntType
   },
   {
-    number: utils.generateRandomNegativeInt,
-    numberType: "negativeInteger"
+    dataGenerator: utils.generateRandomNegativeInt,
+    dataType: negativeIntType
   },
   {
-    number: utils.generateRandomPositiveFloat,
-    numberType: "positiveFloat"
+    dataGenerator: utils.generateRandomPositiveFloat,
+    dataType: positiveFloatType
   },
   {
-    number: utils.generateRandomNegativeFloat,
-    numberType: "negativeFloat"
+    dataGenerator: utils.generateRandomNegativeFloat,
+    dataType: negativeFloatType
   },
-  { number: () => 0, numberType: "zero" },
+  { dataGenerator: () => 0, dataType: zeroType },
   {
-    number: utils.generateRandomLetter,
-    numberType: "letter"
+    dataGenerator: utils.generateRandomLetter,
+    dataType: stringType
   }
 ];
 
-beforeEach("", () => {
-  cy.visit("/BasicCalculator");
+beforeEach('Visits Basic Calculator landing page', () => {
+  cy.visit('/BasicCalculator');
 });
 
 builds.forEach(build => {
   describe(`Build: ${build}`, () => {
     it(`User can click 'Clear' button`, () => {
       landingPage.getBuildDropdown().select(build);
-      landingPage.getClearButton().should("not.be.disabled");
+      landingPage.getClearButton().should('not.be.disabled');
     });
 
     it(`User can choose 'Integers only'`, () => {
@@ -46,189 +53,153 @@ builds.forEach(build => {
       ops.each(op => {
         if (op.value !== landingPage.concatTitle) {
           ops.select(op.val());
-          landingPage.getIntegerSelect().should("not.be.disabled");
+          landingPage.getIntegerSelect().should('not.be.disabled');
         }
       });
     });
 
-    describe("Inputs should only operate on digits in mathematical operations", () => {
-      it(`First number input should only operate on digits`, () => {
-        let seed = 100;
-        landingPage.getBuildDropdown().select(build);
-
-        landingPage.getFirstNumberField().type(utils.generateRandomLetter());
-        landingPage
-          .getSecondNumberField()
-          .type(utils.generateRandomPositiveInt(seed));
-
-        mathOperations.forEach(op => {
-          landingPage.getOperationsDropdown().select(op);
-          landingPage.getCalculateButton().click();
-          landingPage.getErrorMessageField().should("be.visible");
-        });
-      });
-
-      it(`Second number input should only operate on digits`, () => {
-        let seed = 100;
-        landingPage.getBuildDropdown().select(build);
-
-        landingPage
-          .getFirstNumberField()
-          .type(utils.generateRandomPositiveInt(seed));
-        landingPage.getSecondNumberField().type(utils.generateRandomLetter());
-
-        mathOperations.forEach(op => {
-          landingPage.getOperations().select(op);
-          console.log(op);
-
-          landingPage.getCalculateButton().click();
-          landingPage.getErrorMessageField().should("be.visible");
-        });
-      });
-    });
-
-    describe(`Should perform addition correctly`, () => {
-      randomNumbers.forEach(testCase => {
-        it.only(`Can perform addition correctly with ${testCase.numberType} `, () => {
-          testCase.numberType === "letter"
+    describe('Should perform addition correctly', () => {
+      randomData.forEach(testCase => {
+        it.only(`Performs addition correctly with ${testCase.dataType} `, () => {
+          testCase.dataType === stringType;
           let seed = 100;
           let precision = 5;
 
           let firstNumber =
-            testCase.numberType === "letter"
-              ? testCase.number()
-              : parseFloat(testCase.number(seed).toPrecision(precision));
+            testCase.dataType === stringType
+              ? testCase.dataGenerator()
+              : parseFloat(testCase.dataGenerator(seed).toPrecision(precision));
           let secondNumber =
-            testCase.numberType === "letter"
-              ? testCase.number()
-              : parseFloat(testCase.number(seed).toPrecision(precision));
+            testCase.dataType === stringType
+              ? testCase.dataGenerator()
+              : parseFloat(testCase.dataGenerator(seed).toPrecision(precision));
 
-          let firstNumber = parseFloat(
-            testCase.number(seed).toPrecision(precision)
-          );
-          let secondNumber = parseFloat(
-            testCase.number(seed).toPrecision(precision)
-          );
-
-          let answer = firstNumber + secondNumber;
+          let answer =
+            testCase.dataType === stringType
+              ? ''
+              : firstNumber + secondNumber;
 
           landingPage.getBuildDropdown().select(build);
           landingPage.getFirstNumberField().type(firstNumber);
           landingPage.getSecondNumberField().type(secondNumber);
-          landingPage.getOperationsDropdown().select("Add");
+          landingPage.getOperationsDropdown().select(landingPage.addTitle);
           landingPage.getCalculateButton().click();
 
-          landingPage.getAnswerField().should("have.value", answer);
+          landingPage.getAnswerField().should('have.value', answer);
         });
       });
     });
 
-    describe(`Should perform subtraction correctly`, () => {
-      randomNumbers.forEach(testCase => {
-        it.only(`Can perform subtraction correctly with ${testCase.numberType} `, () => {
+    describe('Should perform subtraction correctly', () => {
+      randomData.forEach(testCase => {
+        it.only(`Performs subtraction correctly with ${testCase.dataType} `, () => {
           let seed = 100;
           let precision = 5;
 
           let firstNumber =
-            testCase.numberType === "letter"
-              ? testCase.number()
-              : parseFloat(testCase.number(seed).toPrecision(precision));
+            testCase.dataType === stringType
+              ? testCase.dataGenerator()
+              : parseFloat(testCase.dataGenerator(seed).toPrecision(precision));
           let secondNumber =
-            testCase.numberType === "letter"
-              ? testCase.number()
-              : parseFloat(testCase.number(seed).toPrecision(precision));
+            testCase.dataType === stringType
+              ? testCase.dataGenerator()
+              : parseFloat(testCase.dataGenerator(seed).toPrecision(precision));
 
-          let answer = firstNumber - secondNumber;
+          let answer =
+            testCase.dataType === stringType
+              ? ''
+              : firstNumber - secondNumber;
 
           landingPage.getBuildDropdown().select(build);
           landingPage.getFirstNumberField().type(firstNumber);
           landingPage.getSecondNumberField().type(secondNumber);
-          landingPage.getOperationsDropdown().select("Subtract");
+          landingPage.getOperationsDropdown().select(landingPage.subtractTitle);
           landingPage.getCalculateButton().click();
 
-          landingPage.getAnswerField().should("have.value", answer);
+          landingPage.getAnswerField().should('have.value', answer);
         });
       });
     });
 
-    describe(`Should perform multiplication correctly`, () => {
-      randomNumbers.forEach(testCase => {
-        it.only(`Can perform multiplication correctly with ${testCase.numberType} `, () => {
+    describe('Should perform multiplication correctly', () => {
+      randomData.forEach(testCase => {
+        it.only(`Performs multiplication correctly with ${testCase.dataType} `, () => {
           let seed = 100;
           let precision = 5;
           let firstNumber =
-            testCase.numberType === "letter"
-              ? testCase.number()
-              : parseFloat(testCase.number(seed).toPrecision(precision));
+            testCase.dataType === stringType
+              ? testCase.dataGenerator()
+              : parseFloat(testCase.dataGenerator(seed).toPrecision(precision));
           let secondNumber =
-            testCase.numberType === "letter"
-              ? testCase.number()
-              : parseFloat(testCase.number(seed).toPrecision(precision));
+            testCase.dataType === stringType
+              ? testCase.dataGenerator()
+              : parseFloat(testCase.dataGenerator(seed).toPrecision(precision));
 
-          let answer = firstNumber * secondNumber;
+          let answer =
+            testCase.dataType === stringType
+              ? ''
+              : firstNumber * secondNumber;
 
           landingPage.getBuildDropdown().select(build);
           landingPage.getFirstNumberField().type(firstNumber);
           landingPage.getSecondNumberField().type(secondNumber);
-          landingPage.getOperationsDropdown().select("Multiply");
+          landingPage.getOperationsDropdown().select(landingPage.multiplyTitle);
           landingPage.getCalculateButton().click();
 
-          landingPage.getAnswerField().should("have.value", answer);
+          landingPage.getAnswerField().should('have.value', answer);
         });
       });
     });
 
-    describe(`Should perform division correctly`, () => {
-      randomNumbers
-        //.concat({
-        // number: () => 0,
-        //numberType: "zero"
-        //})
-        .forEach(testCase => {
-          it.only(`Can perform division correctly with ${testCase.numberType} `, () => {
-            let seed = 100;
-            let precision = 5;
-            let firstNumber =
-            testCase.numberType === "letter"
-              ? testCase.number()
-              : parseFloat(testCase.number(seed).toPrecision(precision));
-          let secondNumber =
-            testCase.numberType === "letter"
-              ? testCase.number()
-              : parseFloat(testCase.number(seed).toPrecision(precision));
-
-            landingPage.getBuildDropdown().select(build);
-            landingPage.getFirstNumberField().type(firstNumber);
-            landingPage.getSecondNumberField().type(secondNumber);
-            landingPage.getOperationsDropdown().select("Divide");
-            landingPage.getCalculateButton().click();
-
-            if (secondNumber === 0) {
-              landingPage
-                .getErrorMessageField()
-                .contains(landingPage.divideByZeroError);
-            } else {
-              let answer = firstNumber / secondNumber;
-
-              landingPage.getAnswerField().should("have.value", answer);
-            }
-          });
-        });
-    });
-
-    describe(`Should perform concatenation correctly`, () => {
-      randomNumbers.forEach(testCase => {
-        it.only(`Can perform concat correctly with ${testCase.numberType} `, () => {
+    describe('Should perform division correctly', () => {
+      randomData.forEach(testCase => {
+        it.only(`Performs division correctly with ${testCase.dataType} `, () => {
           let seed = 100;
           let precision = 5;
           let firstNumber =
-            testCase.numberType === "letter"
-              ? testCase.number()
-              : parseFloat(testCase.number(seed).toPrecision(precision));
+            testCase.dataType === stringType
+              ? testCase.dataGenerator()
+              : parseFloat(testCase.dataGenerator(seed).toPrecision(precision));
           let secondNumber =
-            testCase.numberType === "letter"
-              ? testCase.number()
-              : parseFloat(testCase.number(seed).toPrecision(precision));
+            testCase.dataType === stringType
+              ? testCase.dataGenerator()
+              : parseFloat(testCase.dataGenerator(seed).toPrecision(precision));
+
+          landingPage.getBuildDropdown().select(build);
+          landingPage.getFirstNumberField().type(firstNumber);
+          landingPage.getSecondNumberField().type(secondNumber);
+          landingPage.getOperationsDropdown().select(landingPage.divideTitle);
+          landingPage.getCalculateButton().click();
+
+          if (secondNumber === 0) {
+            landingPage
+              .getErrorMessageField()
+              .contains(landingPage.divideByZeroError);
+          } else {
+            let answer =
+              testCase.dataType === stringType
+                ? ''
+                : firstNumber / secondNumber;
+
+            landingPage.getAnswerField().should('have.value', answer);
+          }
+        });
+      });
+    });
+
+    describe('Should perform concatenation correctly', () => {
+      randomData.forEach(testCase => {
+        it.only(`Performs concatenation correctly with ${testCase.dataType} `, () => {
+          let seed = 100;
+          let precision = 5;
+          let firstNumber =
+            testCase.dataType === stringType
+              ? testCase.dataGenerator()
+              : parseFloat(testCase.dataGenerator(seed).toPrecision(precision));
+          let secondNumber =
+            testCase.dataType === stringType
+              ? testCase.dataGenerator()
+              : parseFloat(testCase.dataGenerator(seed).toPrecision(precision));
 
           landingPage.getBuildDropdown().select(build);
           landingPage.getFirstNumberField().type(firstNumber);
@@ -239,7 +210,7 @@ builds.forEach(build => {
           landingPage.getOperationsDropdown().select(landingPage.concatTitle);
           landingPage.getCalculateButton().click();
 
-          landingPage.getAnswerField().should("have.value", answer);
+          landingPage.getAnswerField().should('have.value', answer);
         });
       });
     });
