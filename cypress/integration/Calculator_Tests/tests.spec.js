@@ -76,7 +76,7 @@ describe('tests every calculator build version calculations', () => {
             selector.getNumber1Field().type('2.4')
             selector.getNumber2Field().type('2.2')
             selector.getCalculateButton().click()
-            selector.getAnswerField().contains('4')
+            selector.getAnswerField().should('have.value','4')
         })
 
         it('tests calculator build '+version+' and operation SUBTRACT, if integer checkbox works as expected', ()=>{
@@ -87,7 +87,7 @@ describe('tests every calculator build version calculations', () => {
             selector.getNumber1Field().type('2.4')
             selector.getNumber2Field().type('2.2')
             selector.getCalculateButton().click()
-            selector.getAnswerField().contains('0')
+            selector.getAnswerField().should('have.value','0')
         })
 
         it('tests calculator build '+version+' and operation MULTIPLY, if integer checkbox works as expected', ()=>{
@@ -98,7 +98,7 @@ describe('tests every calculator build version calculations', () => {
             selector.getNumber1Field().type('2.4')
             selector.getNumber2Field().type('2.2')
             selector.getCalculateButton().click()
-            selector.getAnswerField().contains('5')
+            selector.getAnswerField().should('have.value','5')
         })
 
         it('tests calculator build '+version+' and operation DIVIDE, if integer checkbox works as expected', ()=>{
@@ -109,7 +109,7 @@ describe('tests every calculator build version calculations', () => {
             selector.getNumber1Field().type('2.4')
             selector.getNumber2Field().type('2.2')
             selector.getCalculateButton().click()
-            selector.getAnswerField().contains('1')
+            selector.getAnswerField().should('have.value','1')
         })
         // There could be similar tests to the last four, to check if calculator calculates correctly and concatenate operation tests.
         // Those tests will be below this comment (They don't have to be evaluated)
@@ -121,7 +121,7 @@ describe('tests every calculator build version calculations', () => {
         //     selector.getNumber1Field().type('2.4')
         //     selector.getNumber2Field().type('2.2')
         //     selector.getCalculateButton().click()
-        //     selector.getAnswerField().contains('4.6')
+        //     selector.getAnswerField().should('have.value','4.6')
         // })
 
         // it('tests calculator build '+version+' and operation SUBTRACT calculation', ()=>{
@@ -131,7 +131,7 @@ describe('tests every calculator build version calculations', () => {
         //     selector.getNumber1Field().type('2.4')
         //     selector.getNumber2Field().type('2.2')
         //     selector.getCalculateButton().click()
-        //     selector.getAnswerField().contains('0.19999999999999973')
+        //     selector.getAnswerField().should('have.value','0.19999999999999973')
         // })
 
         // it('tests calculator build '+version+' and operation MULTIPLY calculation', ()=>{
@@ -141,7 +141,7 @@ describe('tests every calculator build version calculations', () => {
         //     selector.getNumber1Field().type('2.4')
         //     selector.getNumber2Field().type('2.2')
         //     selector.getCalculateButton().click()
-        //     selector.getAnswerField().contains('5.28')
+        //     selector.getAnswerField().should('have.value','5.28')
         // })
 
         // it('tests calculator build '+version+' and operation DIVIDE calculation', ()=>{
@@ -151,7 +151,7 @@ describe('tests every calculator build version calculations', () => {
         //     selector.getNumber1Field().type('2.4')
         //     selector.getNumber2Field().type('2.2')
         //     selector.getCalculateButton().click()
-        //     selector.getAnswerField().contains('1.0909090909090908')
+        //     selector.getAnswerField().should('have.value','1.0909090909090908')
         // })
 
         // it('tests calculator build '+version+' and operation CONCATENATE calculation', ()=>{
@@ -161,7 +161,7 @@ describe('tests every calculator build version calculations', () => {
         //     selector.getNumber1Field().type('2.4')
         //     selector.getNumber2Field().type('2.2')
         //     selector.getCalculateButton().click()
-        //     selector.getAnswerField().contains('2.42.2')
+        //     selector.getAnswerField().should('have.value','2.42.2')
         // })
     })
 })
