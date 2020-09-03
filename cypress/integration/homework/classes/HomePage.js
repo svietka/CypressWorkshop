@@ -8,10 +8,7 @@ class HomePage {
     numberField2 = "#number2Field";
     integersOnlyCheckbox = "#integerSelect";
 
-    // additionTest(var index){
 
-    //     return index
-    // }
     checkIfFieldsEnabled(field) {
         cy.get(field).should('be.enabled')
     }

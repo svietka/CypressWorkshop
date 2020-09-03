@@ -22,12 +22,12 @@ var homepage = new Homepage
 //     cy.get('.badge-link__thumb__img').should("not.be.visible")
 // })
 
-it("Microsoft word cheat sheet", ()=>{
-    cy.visit("https://www.duckduckgo.com")
-    homepage.getSearchForm().type("microsoft word cheat sheet")
-    homepage.clickSearchButton()
-    cy.get('.c-base__title').contains("Microsoft Word 2010")
-})
+// it("Microsoft word cheat sheet", ()=>{
+//     cy.visit("https://www.duckduckgo.com")
+//     homepage.getSearchForm().type("microsoft word cheat sheet")
+//     homepage.clickSearchButton()
+//     cy.get('.c-base__title').contains("Microsoft Word 2010")
+// })
 
 // it.only("intitle search options works", () => {
 //     cy.visit("https://duckduckgo.com/");
