@@ -4,9 +4,11 @@
   "description": ";    ;\r  ____",
   "main": "index.js",
   "dependencies": {
-    "cypress": "^5.0.0"
+    "cypress": "^5.1.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "mochawesome": "^6.1.1"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
