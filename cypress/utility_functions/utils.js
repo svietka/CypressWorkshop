@@ -17,7 +17,3 @@ export const generateRandomNegativeFloat = seed => {
 export const generateRandomLetter = () => {
   return String.fromCharCode(Math.floor(Math.random() * 26) + 97);
 };
-
-export const generateRandomDigitWithZeroesUpfront = seed => {
-  return parseInt('000000'.concat(generateRandomPositiveInt(seed).toString()));
-};
