@@ -1,26 +1,19 @@
 /// <reference types="cypress" />
 
 import Calculator from '../../page_objects/calculator.js'
-import numberAnswerArray from '../Homework/numbers.js'
+import testData from '../Homework/numbers.js'
 
 var calculator = new Calculator
 
-// Build version names for the forEach cycle.
 var buildVersions = ["Prototype", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
-// Variables for error messages.
 var divideByZeroError = 'Divide by zero error!';
 
-numberAnswerArray.forEach((numberArray) => {
+testData.forEach((numberArray) => {
 
     buildVersions.forEach((buildVersion) => {
 
-        // Defining the error message based on the selected symbols.
-        if (typeof numberArray.firstSymbol === "string" && numberArray.firstSymbol != ' ') {
-            var errorMessage = 'Number 1 is not a number';
-        } else if (typeof numberArray.secondSymbol === "string") {
-            var errorMessage = 'Number 2 is not a number';
-        }
+        var errorMessage = defineErrorMessageBasedOnSymbols(numberArray)
 
         describe(formDescribeSentence("1", buildVersion, "Calculator functionality testing with numbers"), () => {
 
@@ -44,18 +37,7 @@ numberAnswerArray.forEach((numberArray) => {
 
             it.only(formItSentence("1", "4", "Divide", "numbers", numberArray.firstNumber, numberArray.secondNumber, numberArray.integersOnly, "and returns the answer " + numberArray.divideOperationResult) + " or gets the '" + divideByZeroError + "' error", () => {
                 performCalculatorOperation(numberArray.firstNumber, numberArray.secondNumber, 'Divide')
-
-                if (numberArray.secondNumber === 0 || +numberArray.secondNumber + 0 === 0) {
-                    calculator.errorField().contains(divideByZeroError)
-                    calculator.visitInitialPage()
-                    calculator.buildDropDownList().select(buildVersion)
-
-                    if (numberArray.integersOnly) {
-                        calculator.integerSelection().click();
-                    }
-                } else {
-                    calculator.answerField().should('have.value', numberArray.divideOperationResult)
-                }
+                checkDivisionAnswerOrError(numberArray, true, buildVersion, divideByZeroError, false)
             })
 
             it.only(formItSentence("1", "5", "Concatenate", "numbers", numberArray.firstNumber, numberArray.secondNumber, numberArray.integersOnly, "and returns the answer " + numberArray.concatenateOperationResult), () => {
@@ -71,33 +53,35 @@ numberAnswerArray.forEach((numberArray) => {
 
             it.only(formItSentence("2", "1", "Add", "symbols", numberArray.firstSymbol, numberArray.secondSymbol, numberArray.integersOnly, "and returns the following error message - " + errorMessage), () => {
                 performCalculatorOperation(numberArray.firstSymbol, numberArray.secondSymbol, 'Add')
-                checkErrorField(errorMessage)
+                checkIfErrorFieldContainsMessage(errorMessage)
             })
 
             it(formItSentence("2", "2", "Subtract", "symbols", numberArray.firstSymbol, numberArray.secondSymbol, numberArray.integersOnly, "and returns the following error message - " + errorMessage), () => {
                 performCalculatorOperation(numberArray.firstSymbol, numberArray.secondSymbol, 'Subtract')
-                checkErrorField(errorMessage)
+                checkIfErrorFieldContainsMessage(errorMessage)
             })
 
             it(formItSentence("2", "3", "Multiply", "symbols", numberArray.firstSymbol, numberArray.secondSymbol, numberArray.integersOnly, "and returns the following error message - " + errorMessage), () => {
                 performCalculatorOperation(numberArray.firstSymbol, numberArray.secondSymbol, 'Multiply')
-                checkErrorField(errorMessage)
+                checkIfErrorFieldContainsMessage(errorMessage)
             })
 
             it(formItSentence("2", "4", "Divide", "symbols", numberArray.firstSymbol, numberArray.secondSymbol, numberArray.integersOnly, "and returns the following error message - " + errorMessage), () => {
                 performCalculatorOperation(numberArray.firstSymbol, numberArray.secondSymbol, 'Divide')
-                checkErrorField(errorMessage)
+                checkIfErrorFieldContainsMessage(errorMessage)
             })
         })
 
-        describe.only(formDescribeSentence("3", buildVersion, "Calculator 'Clear' button functionality testing with numbers"), () => {
+        describe(formDescribeSentence("3", buildVersion, "Calculator 'Clear' button functionality testing with numbers"), () => {
 
-            beforeSectionForPageAndIntegers(numberArray.integersOnly, false, buildVersion);
-            beforeEachClearBothInputFields();
+            beforeSectionForPageAndIntegers(numberArray.integersOnly, false, buildVersion)
 
             beforeEach("Selects the 'Integers only' marker based on the integersOnly value", () => {
+
+                clearBothInputFields()
+
                 if (numberArray.integersOnly) {
-                    calculator.integerSelection().click();
+                    calculator.integerSelection().click()
                 }
             })
 
@@ -118,18 +102,7 @@ numberAnswerArray.forEach((numberArray) => {
 
             it(formItSentence("3", "4", "Divide", "numbers", numberArray.firstNumber, numberArray.secondNumber, numberArray.integersOnly, "and clears the answer field or gets the '" + divideByZeroError + "' error"), () => {
                 performCalculatorOperation(numberArray.firstNumber, numberArray.secondNumber, 'Divide')
-
-                if (numberArray.secondNumber === 0 || +numberArray.secondNumber + 0 === 0) {
-                    calculator.errorField().contains(divideByZeroError)
-                    calculator.visitInitialPage()
-                    calculator.buildDropDownList().select(buildVersion)
-
-                    if (numberArray.integersOnly) {
-                        calculator.integerSelection().click();
-                    }
-                } else {
-                    clearAndCheckAnswerField(false)
-                }
+                checkDivisionAnswerOrError(numberArray, false, buildVersion, divideByZeroError, true)
             })
 
             it(formItSentence("3", "5", "Concatenate", "numbers", numberArray.firstNumber, numberArray.secondNumber, numberArray.integersOnly, "and clears the answer field"), () => {
@@ -140,21 +113,29 @@ numberAnswerArray.forEach((numberArray) => {
     })
 })
 
+function visitPageSelectBuildIntegersOnly(integersOnly, integerValidation, buildVersion) {
+    calculator.visitInitialPage()
+    calculator.buildDropDownList().select(buildVersion)
+
+    if (integersOnly && integerValidation) {
+        calculator.integerSelection().click()
+    }
+}
+
 function beforeSectionForPageAndIntegers(integersOnly, integerValidation, buildVersion) {
     before("Selects the 'Integers only' marker based on the integersOnly value and visits the initial page", () => {
-        calculator.visitInitialPage()
-        calculator.buildDropDownList().select(buildVersion)
-
-        if (integersOnly && integerValidation) {
-            calculator.integerSelection().click()
-        }
+        visitPageSelectBuildIntegersOnly(integersOnly, integerValidation, buildVersion)
     })
+}
+
+function clearBothInputFields() {
+    calculator.firstNumberField().clear()
+    calculator.secondNumberField().clear()
 }
 
 function beforeEachClearBothInputFields() {
     beforeEach("Clears the first and the second input fields", () => {
-        calculator.firstNumberField().clear()
-        calculator.secondNumberField().clear()
+        clearBothInputFields()
     })
 }
 
@@ -165,9 +146,25 @@ function performCalculatorOperation(firstNumber, secondNumber, operationName) {
     calculator.calculateButton().click()
 }
 
-function checkErrorField(errorMessage) {
+function checkIfErrorFieldContainsMessage(errorMessage) {
     calculator.errorField().contains(errorMessage)
     calculator.answerField().should('be.empty')
+}
+
+function checkDivisionAnswerOrError(numberArray, integerValidation, buildVersion, divideByZeroError, isClearTest) {
+
+    if (numberArray.secondNumber === 0 || +numberArray.secondNumber + 0 === 0) {
+        calculator.errorField().contains(divideByZeroError)
+        visitPageSelectBuildIntegersOnly(numberArray.integersOnly, integerValidation, buildVersion)
+    } else {
+
+        if (isClearTest) {
+            clearAndCheckAnswerField(false)
+        }
+        else {
+            calculator.answerField().should('have.value', numberArray.divideOperationResult)
+        }
+    }
 }
 
 function clearAndCheckAnswerField(concatenateOperation) {
@@ -178,6 +175,18 @@ function clearAndCheckAnswerField(concatenateOperation) {
     if (!concatenateOperation) {
         calculator.integerSelection().should('not.be.checked')
     }
+}
+
+function defineErrorMessageBasedOnSymbols(numberArray) {
+    var errorMessage = "";
+
+    if (typeof numberArray.firstSymbol === "string" && numberArray.firstSymbol != ' ') {
+        errorMessage = 'Number 1 is not a number';
+    } else if (typeof numberArray.secondSymbol === "string") {
+        errorMessage = 'Number 2 is not a number';
+    }
+
+    return errorMessage;
 }
 
 function formDescribeSentence(describeNumber, buildVersion, sideNote) {
