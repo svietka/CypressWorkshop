@@ -1,2 +1,4 @@
 node_modules
-cypress/integration/examples
+mochawesome-report
+cypress/screenshots
+cypress/videos
