@@ -42,22 +42,6 @@ beforeEach('Visits Basic Calculator landing page', () => {
 
 builds.forEach(build => {
   describe(`Build: ${build}`, () => {
-    it(`User can click 'Clear' button`, () => {
-      landingPage.getBuildDropdown().select(build);
-      landingPage.getClearButton().should('not.be.disabled');
-    });
-
-    it(`User can choose 'Integers only'`, () => {
-      landingPage.getBuildDropdown().select(build);
-      let ops = landingPage.getOperationsDropdown();
-      ops.each(op => {
-        if (op.value !== landingPage.concatTitle) {
-          ops.select(op.val());
-          landingPage.getIntegerSelect().should('not.be.disabled');
-        }
-      });
-    });
-
     describe('Should perform addition correctly', () => {
       randomData.forEach(testCase => {
         it.only(`Performs addition correctly with ${testCase.dataType} `, () => {
@@ -212,6 +196,22 @@ builds.forEach(build => {
 
           landingPage.getAnswerField().should('have.value', answer);
         });
+      });
+    });
+
+    it(`Can click 'Clear' button`, () => {
+      landingPage.getBuildDropdown().select(build);
+      landingPage.getClearButton().should('not.be.disabled');
+    });
+
+    it(`Can choose 'Integers only'`, () => {
+      landingPage.getBuildDropdown().select(build);
+      let ops = landingPage.getOperationsDropdown();
+      ops.each(op => {
+        if (op.value !== landingPage.concatTitle) {
+          ops.select(op.val());
+          landingPage.getIntegerSelect().should('not.be.disabled');
+        }
       });
     });
   });
