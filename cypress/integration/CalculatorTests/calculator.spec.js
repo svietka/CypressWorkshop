@@ -1,16 +1,18 @@
 import LandingPage from '../../page_objects/landingpage/landingpage.js';
 import * as utils from '../../utility_functions/utils.js';
-/// <reference types="cypress" />
+/// <reference types='cypress' />
 
 let landingPage = new LandingPage();
 
 const builds = [...Array(10).keys()].map(String);
+const integerSelectValues = [false, true];
 const stringType = 'string';
-const positiveIntType = 'positive Integer';
-const negativeIntType = 'negative Integer';
-const positiveFloatType = 'positive Float';
-const negativeFloatType = 'negative Float';
+const positiveIntType = 'positive_Integer';
+const negativeIntType = 'negative_Integer';
+const positiveFloatType = 'positive_Float';
+const negativeFloatType = 'negative_Float';
 const zeroType = 'zero';
+const leadingZeroDigitsType = 'leading_Zero_Digits';
 
 const randomData = [
   {
@@ -33,6 +35,10 @@ const randomData = [
   {
     dataGenerator: utils.generateRandomLetter,
     dataType: stringType
+  },
+  {
+    dataGenerator: utils.generateRandomDigitWithZeroesUpfront,
+    dataType: leadingZeroDigitsType
   }
 ];
 
@@ -44,129 +50,225 @@ builds.forEach(build => {
   describe(`Build: ${build}`, () => {
     describe('Should perform addition correctly', () => {
       randomData.forEach(testCase => {
-        it.only(`Performs addition correctly with ${testCase.dataType} `, () => {
-          testCase.dataType === stringType;
-          let seed = 100;
-          let precision = 5;
+        integerSelectValues.forEach(intSelectValue => {
+          it.only(`Performs addition correctly with ${testCase.dataType}, 
+          integers only: ${intSelectValue}`, () => {
+            let seed = 100;
+            let precision = 5;
 
-          let firstNumber =
-            testCase.dataType === stringType
-              ? testCase.dataGenerator()
-              : parseFloat(testCase.dataGenerator(seed).toPrecision(precision));
-          let secondNumber =
-            testCase.dataType === stringType
-              ? testCase.dataGenerator()
-              : parseFloat(testCase.dataGenerator(seed).toPrecision(precision));
+            let firstNumber, secondNumber, answer;
 
-          let answer =
-            testCase.dataType === stringType
-              ? ''
-              : firstNumber + secondNumber;
+            switch (testCase.dataType) {
+              case zeroType:
+                firstNumber = testCase.dataGenerator();
+                secondNumber = testCase.dataGenerator();
+                answer = firstNumber + secondNumber;
+                break;
+              case stringType:
+                firstNumber = testCase.dataGenerator();
+                secondNumber = testCase.dataGenerator();
+                answer = '';
+                break;
+              case leadingZeroDigitsType:
+                firstNumber = testCase.dataGenerator(seed);
+                secondNumber = testCase.dataGenerator(seed);
+                answer = parseInt(firstNumber) + parseInt(secondNumber);
+                break;
+              default:
+                firstNumber = parseFloat(
+                  testCase.dataGenerator(seed).toPrecision(precision)
+                );
+                secondNumber = parseFloat(
+                  testCase.dataGenerator(seed).toPrecision(precision)
+                );
+                answer = firstNumber + secondNumber;
+            }
 
-          landingPage.getBuildDropdown().select(build);
-          landingPage.getFirstNumberField().type(firstNumber);
-          landingPage.getSecondNumberField().type(secondNumber);
-          landingPage.getOperationsDropdown().select(landingPage.addTitle);
-          landingPage.getCalculateButton().click();
+            if (intSelectValue === true && typeof answer !== 'string') {
+              answer = parseInt(answer);
+              landingPage.getIntegerSelect().click();
+            }
 
-          landingPage.getAnswerField().should('have.value', answer);
+            landingPage.getBuildDropdown().select(build);
+            landingPage.getFirstNumberField().type(firstNumber);
+            landingPage.getSecondNumberField().type(secondNumber);
+            landingPage
+              .getOperationsDropdown()
+              .select(landingPage.additionTitle);
+            landingPage.getCalculateButton().click();
+
+            landingPage.getAnswerField().should('have.value', answer);
+          });
         });
       });
     });
 
     describe('Should perform subtraction correctly', () => {
       randomData.forEach(testCase => {
-        it.only(`Performs subtraction correctly with ${testCase.dataType} `, () => {
-          let seed = 100;
-          let precision = 5;
+        integerSelectValues.forEach(intSelectValue => {
+          it.only(`Performs subtraction correctly with ${testCase.dataType}, 
+          integers only: ${intSelectValue}`, () => {
+            let seed = 100;
+            let precision = 5;
 
-          let firstNumber =
-            testCase.dataType === stringType
-              ? testCase.dataGenerator()
-              : parseFloat(testCase.dataGenerator(seed).toPrecision(precision));
-          let secondNumber =
-            testCase.dataType === stringType
-              ? testCase.dataGenerator()
-              : parseFloat(testCase.dataGenerator(seed).toPrecision(precision));
+            let firstNumber, secondNumber, answer;
 
-          let answer =
-            testCase.dataType === stringType
-              ? ''
-              : firstNumber - secondNumber;
+            switch (testCase.dataType) {
+              case zeroType:
+                firstNumber = testCase.dataGenerator();
+                secondNumber = testCase.dataGenerator();
+                answer = firstNumber + secondNumber;
+                break;
+              case stringType:
+                firstNumber = testCase.dataGenerator();
+                secondNumber = testCase.dataGenerator();
+                answer = '';
+                break;
+              case leadingZeroDigitsType:
+                firstNumber = testCase.dataGenerator(seed);
+                secondNumber = testCase.dataGenerator(seed);
+                answer = parseInt(firstNumber) - parseInt(secondNumber);
+                break;
+              default:
+                firstNumber = parseFloat(
+                  testCase.dataGenerator(seed).toPrecision(precision)
+                );
+                secondNumber = parseFloat(
+                  testCase.dataGenerator(seed).toPrecision(precision)
+                );
+                answer = firstNumber - secondNumber;
+            }
 
-          landingPage.getBuildDropdown().select(build);
-          landingPage.getFirstNumberField().type(firstNumber);
-          landingPage.getSecondNumberField().type(secondNumber);
-          landingPage.getOperationsDropdown().select(landingPage.subtractTitle);
-          landingPage.getCalculateButton().click();
+            if (intSelectValue === true && typeof answer !== 'string') {
+              answer = parseInt(answer);
+              landingPage.getIntegerSelect().click();
+            }
 
-          landingPage.getAnswerField().should('have.value', answer);
+            landingPage.getBuildDropdown().select(build);
+            landingPage.getFirstNumberField().type(firstNumber);
+            landingPage.getSecondNumberField().type(secondNumber);
+            landingPage
+              .getOperationsDropdown()
+              .select(landingPage.subtractionTitle);
+            landingPage.getCalculateButton().click();
+
+            landingPage.getAnswerField().should('have.value', answer);
+          });
         });
       });
     });
 
     describe('Should perform multiplication correctly', () => {
       randomData.forEach(testCase => {
-        it.only(`Performs multiplication correctly with ${testCase.dataType} `, () => {
-          let seed = 100;
-          let precision = 5;
-          let firstNumber =
-            testCase.dataType === stringType
-              ? testCase.dataGenerator()
-              : parseFloat(testCase.dataGenerator(seed).toPrecision(precision));
-          let secondNumber =
-            testCase.dataType === stringType
-              ? testCase.dataGenerator()
-              : parseFloat(testCase.dataGenerator(seed).toPrecision(precision));
+        integerSelectValues.forEach(intSelectValue => {
+          it.only(`Performs multiplication correctly with ${testCase.dataType}, 
+        integers only: ${intSelectValue}`, () => {
+            let seed = 100;
+            let precision = 5;
 
-          let answer =
-            testCase.dataType === stringType
-              ? ''
-              : firstNumber * secondNumber;
+            let firstNumber, secondNumber, answer;
 
-          landingPage.getBuildDropdown().select(build);
-          landingPage.getFirstNumberField().type(firstNumber);
-          landingPage.getSecondNumberField().type(secondNumber);
-          landingPage.getOperationsDropdown().select(landingPage.multiplyTitle);
-          landingPage.getCalculateButton().click();
+            switch (testCase.dataType) {
+              case zeroType:
+                firstNumber = testCase.dataGenerator();
+                secondNumber = testCase.dataGenerator();
+                answer = firstNumber + secondNumber;
+                break;
+              case stringType:
+                firstNumber = testCase.dataGenerator();
+                secondNumber = testCase.dataGenerator();
+                answer = '';
+                break;
+              case leadingZeroDigitsType:
+                firstNumber = testCase.dataGenerator(seed);
+                secondNumber = testCase.dataGenerator(seed);
+                answer = parseInt(firstNumber) * parseInt(secondNumber);
+                break;
+              default:
+                firstNumber = parseFloat(
+                  testCase.dataGenerator(seed).toPrecision(precision)
+                );
+                secondNumber = parseFloat(
+                  testCase.dataGenerator(seed).toPrecision(precision)
+                );
+                answer = firstNumber * secondNumber;
+            }
 
-          landingPage.getAnswerField().should('have.value', answer);
+            if (intSelectValue === true && typeof answer !== 'string') {
+              answer = parseInt(answer);
+              landingPage.getIntegerSelect().click();
+            }
+
+            landingPage.getBuildDropdown().select(build);
+            landingPage.getFirstNumberField().type(firstNumber);
+            landingPage.getSecondNumberField().type(secondNumber);
+            landingPage
+              .getOperationsDropdown()
+              .select(landingPage.multiplicationTitle);
+            landingPage.getCalculateButton().click();
+
+            landingPage.getAnswerField().should('have.value', answer);
+          });
         });
       });
     });
 
     describe('Should perform division correctly', () => {
       randomData.forEach(testCase => {
-        it.only(`Performs division correctly with ${testCase.dataType} `, () => {
-          let seed = 100;
-          let precision = 5;
-          let firstNumber =
-            testCase.dataType === stringType
-              ? testCase.dataGenerator()
-              : parseFloat(testCase.dataGenerator(seed).toPrecision(precision));
-          let secondNumber =
-            testCase.dataType === stringType
-              ? testCase.dataGenerator()
-              : parseFloat(testCase.dataGenerator(seed).toPrecision(precision));
+        integerSelectValues.forEach(intSelectValue => {
+          it.only(`Performs division correctly with ${testCase.dataType}, 
+        integers only: ${intSelectValue}`, () => {
+            let seed = 100;
+            let precision = 5;
 
-          landingPage.getBuildDropdown().select(build);
-          landingPage.getFirstNumberField().type(firstNumber);
-          landingPage.getSecondNumberField().type(secondNumber);
-          landingPage.getOperationsDropdown().select(landingPage.divideTitle);
-          landingPage.getCalculateButton().click();
+            let firstNumber, secondNumber, answer;
 
-          if (secondNumber === 0) {
+            switch (testCase.dataType) {
+              case zeroType:
+                firstNumber = testCase.dataGenerator();
+                secondNumber = testCase.dataGenerator();
+                break;
+              case stringType:
+                firstNumber = testCase.dataGenerator();
+                secondNumber = testCase.dataGenerator();
+                answer = '';
+                break;
+              case leadingZeroDigitsType:
+                firstNumber = testCase.dataGenerator(seed);
+                secondNumber = testCase.dataGenerator(seed);
+                answer = parseInt(firstNumber) / parseInt(secondNumber);
+                break;
+              default:
+                firstNumber = parseFloat(
+                  testCase.dataGenerator(seed).toPrecision(precision)
+                );
+                secondNumber = parseFloat(
+                  testCase.dataGenerator(seed).toPrecision(precision)
+                );
+                answer = firstNumber / secondNumber;
+            }
+
+            if (intSelectValue === true && typeof answer !== 'string') {
+              answer = parseInt(answer);
+              landingPage.getIntegerSelect().click();
+            }
+
+            landingPage.getBuildDropdown().select(build);
+            landingPage.getFirstNumberField().type(firstNumber);
+            landingPage.getSecondNumberField().type(secondNumber);
             landingPage
-              .getErrorMessageField()
-              .contains(landingPage.divideByZeroError);
-          } else {
-            let answer =
-              testCase.dataType === stringType
-                ? ''
-                : firstNumber / secondNumber;
+              .getOperationsDropdown()
+              .select(landingPage.divisionTitle);
+            landingPage.getCalculateButton().click();
 
-            landingPage.getAnswerField().should('have.value', answer);
-          }
+            if (secondNumber === 0) {
+              landingPage
+                .getErrorMessageField()
+                .contains(landingPage.divideByZeroError);
+            } else {
+              landingPage.getAnswerField().should('have.value', answer);
+            }
+          });
         });
       });
     });
@@ -176,22 +278,42 @@ builds.forEach(build => {
         it.only(`Performs concatenation correctly with ${testCase.dataType} `, () => {
           let seed = 100;
           let precision = 5;
-          let firstNumber =
-            testCase.dataType === stringType
-              ? testCase.dataGenerator()
-              : parseFloat(testCase.dataGenerator(seed).toPrecision(precision));
-          let secondNumber =
-            testCase.dataType === stringType
-              ? testCase.dataGenerator()
-              : parseFloat(testCase.dataGenerator(seed).toPrecision(precision));
+
+          let firstNumber, secondNumber, answer;
+
+          switch (testCase.dataType) {
+            case zeroType:
+              firstNumber = testCase.dataGenerator();
+              secondNumber = testCase.dataGenerator();
+
+              break;
+            case stringType:
+              firstNumber = testCase.dataGenerator();
+              secondNumber = testCase.dataGenerator();
+
+              break;
+            case leadingZeroDigitsType:
+              firstNumber = testCase.dataGenerator(seed);
+              secondNumber = testCase.dataGenerator(seed);
+
+              break;
+            default:
+              firstNumber = parseFloat(
+                testCase.dataGenerator(seed).toPrecision(precision)
+              );
+              secondNumber = parseFloat(
+                testCase.dataGenerator(seed).toPrecision(precision)
+              );
+          }
+
+          answer = firstNumber.toString().concat(secondNumber.toString());
 
           landingPage.getBuildDropdown().select(build);
           landingPage.getFirstNumberField().type(firstNumber);
           landingPage.getSecondNumberField().type(secondNumber);
-
-          let answer = firstNumber.toString().concat(secondNumber.toString());
-
-          landingPage.getOperationsDropdown().select(landingPage.concatTitle);
+          landingPage
+            .getOperationsDropdown()
+            .select(landingPage.concatenationTitle);
           landingPage.getCalculateButton().click();
 
           landingPage.getAnswerField().should('have.value', answer);
@@ -208,7 +330,7 @@ builds.forEach(build => {
       landingPage.getBuildDropdown().select(build);
       let ops = landingPage.getOperationsDropdown();
       ops.each(op => {
-        if (op.value !== landingPage.concatTitle) {
+        if (op.value !== landingPage.concatenationTitle) {
           ops.select(op.val());
           landingPage.getIntegerSelect().should('not.be.disabled');
         }

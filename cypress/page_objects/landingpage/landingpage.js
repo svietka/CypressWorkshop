@@ -8,11 +8,11 @@ class LandingPage {
   integerSelect = '#integerSelect';
   answerField = '#numberAnswerField';
   errorMsgField = '#errorMsgField';
-  addTitle = 'Add';
-  subtractTitle = 'Subtract';
-  multiplyTitle = 'Multiply';
-  divideTitle = 'Divide';
-  concatTitle = 'Concatenate';
+  additionTitle = 'Add';
+  subtractionTitle = 'Subtract';
+  multiplicationTitle = 'Multiply';
+  divisionTitle = 'Divide';
+  concatenationTitle = 'Concatenate';
   divideByZeroError = 'Divide by zero error!';
 
   getFirstNumberField() {
