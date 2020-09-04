@@ -2,102 +2,108 @@
 import HomeworkPage from '../../page_objects/HomeworkPage/HomeworkPage.js'
 
 var homeworkPage = new HomeworkPage
-
 const builds = ['Prototype', 1, 2, 3, 4, 5, 6, 7, 8, 9]
-
-// 0 - not checked ; 1 - checked 
-const integersOnly = [0, 1]
-
 beforeEach('Executes before each test', ()=>{
     cy.visit('https://testsheepnz.github.io/BasicCalculator')
 }) 
 
 //ADD
-integersOnly.forEach((integer) => {
-    builds.forEach((build) =>{
-        it(`Adds two numbers correctly for ${build} build, integers only = ${integer}`, ()=>{  
-            if(integer == 1){
-                homeworkPage.getIntegersOnlyCheckbox().click();
-            }
-            homeworkPage.getBuildDropdown().select(`${build}`)  
-            homeworkPage.getNumberOneField().type(3.5)
-            homeworkPage.getNumberTwoField().type(4)
-            homeworkPage.getCalculateButton().click()
-            if(integer == 1){
-                homeworkPage.getAnswerField().should('have.value', '7')     
-            }else{
-                homeworkPage.getAnswerField().should('have.value', '7.5') 
-            }               
-        })
+builds.forEach((build) =>{
+    it('Adds two numbers correctly for ${build} build when integers only is selected', ()=>{              
+        homeworkPage.getIntegersOnlyCheckbox().click()            
+        homeworkPage.getBuildDropdown().select(`${build}`)  
+        homeworkPage.getNumberOneField().type(3.5)
+        homeworkPage.getNumberTwoField().type(4)
+        homeworkPage.getCalculateButton().click()            
+        homeworkPage.getAnswerField().should('have.value', '7')               
+    })
+})
+
+builds.forEach((build) =>{
+    it('Adds two numbers correctly for ${build} build', ()=>{                        
+        homeworkPage.getBuildDropdown().select(`${build}`)  
+        homeworkPage.getNumberOneField().type(3.5)
+        homeworkPage.getNumberTwoField().type(4)
+        homeworkPage.getCalculateButton().click()            
+        homeworkPage.getAnswerField().should('have.value', '7.5')               
     })
 })
 
 //SUBTRACT
-integersOnly.forEach((integer) => {
-    builds.forEach((build) =>{
-        it.only(`Subtracts two numbers correctly for ${build} build, integers only = ${integer}`, ()=>{
-            if(integer == 1){
-                homeworkPage.getIntegersOnlyCheckbox().click();
-            }
-            homeworkPage.getBuildDropdown().select(`${build}`)
-            homeworkPage.getNumberOneField().type(3.5)
-            homeworkPage.getNumberTwoField().type(4)
-            homeworkPage.getOperationDropdown().select('Subtract')
-            homeworkPage.getCalculateButton().click()
-            if(integer == 1){
-                homeworkPage.getAnswerField().should('have.value', '0')  
-            }else{
-                homeworkPage.getAnswerField().should('have.value', '-0.5')  
-            }    
-        })
+builds.forEach((build) =>{
+    it.only(`Subtracts two numbers correctly for ${build} build when integers only is selected`, ()=>{       
+        homeworkPage.getIntegersOnlyCheckbox().click()       
+        homeworkPage.getBuildDropdown().select(`${build}`)
+        homeworkPage.getNumberOneField().type(3.5)
+        homeworkPage.getNumberTwoField().type(4)
+        homeworkPage.getOperationDropdown().select('Subtract')
+        homeworkPage.getCalculateButton().click()
+        homeworkPage.getAnswerField().should('have.value', '0')   
+    })
+})
+
+builds.forEach((build) =>{
+    it.only(`Subtracts two numbers correctly for ${build} build`, ()=>{             
+        homeworkPage.getBuildDropdown().select(`${build}`)
+        homeworkPage.getNumberOneField().type(3.5)
+        homeworkPage.getNumberTwoField().type(4)
+        homeworkPage.getOperationDropdown().select('Subtract')
+        homeworkPage.getCalculateButton().click()
+        homeworkPage.getAnswerField().should('have.value', '-0.5')   
     })
 })
 
 //MULTIPLY
-integersOnly.forEach((integer) => {
-    builds.forEach((build) =>{
-        it(`Multiplies two numbers correctly for ${build} build, integers only = ${integer}`, ()=>{
-            if(integer == 1){
-                homeworkPage.getIntegersOnlyCheckbox().click();
-            }
-            homeworkPage.getBuildDropdown().select(`${build}`)
-            homeworkPage.getNumberOneField().type(4.2)
-            homeworkPage.getNumberTwoField().type(4)
-            homeworkPage.getOperationDropdown().select('Multiply')
-            homeworkPage.getCalculateButton().click()
-            if(integer == 1){
-                homeworkPage.getAnswerField().should('have.value', '16')  
-            }else{
-                homeworkPage.getAnswerField().should('have.value', '16.8')  
-            }    
-        })
+builds.forEach((build) =>{
+    it(`Multiplies two numbers correctly for ${build} build when integers only is selected`, ()=>{
+        homeworkPage.getIntegersOnlyCheckbox().click()
+        homeworkPage.getBuildDropdown().select(`${build}`)
+        homeworkPage.getNumberOneField().type(4.2)
+        homeworkPage.getNumberTwoField().type(4)
+        homeworkPage.getOperationDropdown().select('Multiply')
+        homeworkPage.getCalculateButton().click()
+        homeworkPage.getAnswerField().should('have.value', '16')  
+    })
+})
+
+builds.forEach((build) =>{
+    it(`Multiplies two numbers correctly for ${build} build`, ()=>{
+        homeworkPage.getBuildDropdown().select(`${build}`)
+        homeworkPage.getNumberOneField().type(4.2)
+        homeworkPage.getNumberTwoField().type(4)
+        homeworkPage.getOperationDropdown().select('Multiply')
+        homeworkPage.getCalculateButton().click()
+        homeworkPage.getAnswerField().should('have.value', '16.8')  
     })
 })
 
 //DIVIDE
-integersOnly.forEach((integer) => {
-    builds.forEach((build) =>{
-        it(`Devides two numbers correctly for ${build} build, integers only = ${integer}`, ()=>{
-            if(integer == 1){
-                homeworkPage.getIntegersOnlyCheckbox().click();
-            }
-            homeworkPage.getBuildDropdown().select(`${build}`)
-            homeworkPage.getNumberOneField().type(3)
-            homeworkPage.getNumberTwoField().type(2)
-            homeworkPage.getOperationDropdown().select('Divide')
-            homeworkPage.getCalculateButton().click()
-            if(integer == 1){
-                homeworkPage.getAnswerField().should('have.value', '1')  
-            }else{
-                homeworkPage.getAnswerField().should('have.value', '1.5')  
-            }  
-        })
+builds.forEach((build) =>{
+    it(`Devides two numbers correctly for ${build} build when integers only is selected`, ()=>{        
+        homeworkPage.getIntegersOnlyCheckbox().click()       
+        homeworkPage.getBuildDropdown().select(`${build}`)
+        homeworkPage.getNumberOneField().type(3)
+        homeworkPage.getNumberTwoField().type(2)
+        homeworkPage.getOperationDropdown().select('Divide')
+        homeworkPage.getCalculateButton().click()
+        homeworkPage.getAnswerField().should('have.value', '1')  
+    })
+})
+
+builds.forEach((build) =>{
+    it(`Devides two numbers correctly for ${build} build`, ()=>{              
+        homeworkPage.getBuildDropdown().select(`${build}`)
+        homeworkPage.getNumberOneField().type(3)
+        homeworkPage.getNumberTwoField().type(2)
+        homeworkPage.getOperationDropdown().select('Divide')
+        homeworkPage.getCalculateButton().click()
+        homeworkPage.getAnswerField().should('have.value', '1.5')  
     })
 })
 
 //CONCATENATE
 builds.forEach((build) =>{
-    it.only(`Concatinates corectly for ${build}`, ()=>{
+    it(`Concatinates corectly for ${build} build`, ()=>{
         homeworkPage.getBuildDropdown().select(`${build}`)
         homeworkPage.getNumberOneField().type('4b')
         homeworkPage.getNumberTwoField().type('1aa2')
@@ -223,7 +229,7 @@ builds.forEach((build) =>{
 })
 
 builds.forEach((build) =>{
-    it.only(`Should NOT let you select integers only checkbox two for build ${build}`, ()=>{
+    it.only(`Should NOT let you select integers only checkbox when Concatenate action is selected for ${build}`, ()=>{
         homeworkPage.getBuildDropdown().select(`${build}`)
         homeworkPage.getOperationDropdown().select('Concatenate')
         homeworkPage.getIntegersOnlyCheckbox().should("not.be.visible")         
