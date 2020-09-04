@@ -7,21 +7,17 @@ beforeEach("Visits page and checks if 'integer' checkbox is not disabled", () =>
     cy.visit("BasicCalculator")
 })
 
-// TESTS FOR SUM OPERATION (6 tests included)
-
-describe("Checks if first field is visible", () => {
-      
-    ["Prototype", "1","2","3", "4", "5", "6", "7", "8", "9"].forEach((buildNumber) => {
+// TESTS FOR SUM OPERATION (6 tests to cover more)
+describe("Checks if first field is visible", () => { 
+    ["Prototype", "1", "2", "3", "4", "5", "6", "7", "8", "9"].forEach((buildNumber) => {
         it.only("Runs tests with built:" + buildNumber, () => {
             homepage.getbuild().select(buildNumber) 
             homepage.getfirstField().should("be.visible")
         })
     })
 })
-
 describe("Checks if second field is visible", () => {
-      
-    ["Prototype", "1","2","3", "4", "5", "6", "7", "8", "9"].forEach((buildNumber) => {
+    ["Prototype", "1", "2", "3", "4", "5", "6", "7", "8", "9"].forEach((buildNumber) => {
         it.only("Runs tests with built:" + buildNumber, () => {
             homepage.getbuild().select(buildNumber) 
             homepage.getsecondField().should("be.visible")
@@ -30,8 +26,7 @@ describe("Checks if second field is visible", () => {
 })
 
 describe("Checks if Integer Mode checkbox is not disabled", () => {
-      
-    ["Prototype", "1","2","3", "4", "5", "6", "7", "8", "9"].forEach((buildNumber) => {
+    ["Prototype", "1", "2", "3", "4", "5", "6", "7", "8", "9"].forEach((buildNumber) => {
         it.only("Runs tests with built:" + buildNumber, () => {
             homepage.getbuild().select(buildNumber) 
             homepage.getintegerCheckBox().should("not.be.disabled")
@@ -40,8 +35,7 @@ describe("Checks if Integer Mode checkbox is not disabled", () => {
 })
 
 describe("Checks if calculate button is visible", () => {
-      
-    ["Prototype", "1","2","3", "4", "5", "6", "7", "8", "9"].forEach((buildNumber) => {
+    ["Prototype", "1", "2", "3", "4", "5", "6", "7", "8", "9"].forEach((buildNumber) => {
         it.only("Runs tests with built:" + buildNumber, () => {
             homepage.getbuild().select(buildNumber) 
             homepage.getcalculateButton().should("be.visible")
@@ -50,8 +44,7 @@ describe("Checks if calculate button is visible", () => {
 })
 
 describe("Executes SUM operation testing for each build with integer mode OFF", () => {
-      
-    ["Prototype", "1","2","3", "4", "5", "6", "7", "8", "9"].forEach((buildNumber) => {
+    ["Prototype", "1", "2", "3", "4", "5", "6", "7", "8", "9"].forEach((buildNumber) => {
         it.only("Runs tests with built:" + buildNumber, () => {
             homepage.getbuild().select(buildNumber) 
             homepage.getintegerCheckBox().should("not.be.checked")
@@ -64,8 +57,7 @@ describe("Executes SUM operation testing for each build with integer mode OFF", 
 })
 
 describe("Executes SUM operation testing for each build with integer mode ON", () => {
-      
-    ["Prototype", "1","2","3", "4", "5", "6", "7", "8", "9"].forEach((buildNumber) => {
+    ["Prototype", "1", "2", "3", "4", "5", "6", "7", "8", "9"].forEach((buildNumber) => {
         it.only("Runs tests with built:" + buildNumber, () => {
             homepage.getintegerCheckBox().check()
             homepage.getintegerselect().should("be.checked")
@@ -77,11 +69,9 @@ describe("Executes SUM operation testing for each build with integer mode ON", (
     })
 })
   
-
 //BELOW THERE ARE ALL OPERATIONS THAT CAN BE TESTED BUT MAIN IDEA WOULD BE THE SAME 
 describe("Executes SUBTRACT operation testing for each build with integer mode OFF", () => {
-      
-     ["Prototype", "1","2","3", "4", "5", "6", "7", "8", "9"].forEach((buildNumber) => {
+    ["Prototype", "1", "2", "3", "4", "5", "6", "7", "8", "9"].forEach((buildNumber) => {
         it("Runs tests with built:" + buildNumber, () => {
             homepage.getbuild().select(buildNumber) 
             homepage.getfirstField().should("be.visible")
@@ -99,8 +89,7 @@ describe("Executes SUBTRACT operation testing for each build with integer mode O
 })
 
 describe("Executes MULTIPLY operation testing for each build with integer mode OFF", () => {
-      
-    ["Prototype", "1","2","3", "4", "5", "6", "7", "8", "9"].forEach((buildNumber) => {
+    ["Prototype", "1", "2", "3", "4", "5", "6", "7", "8", "9"].forEach((buildNumber) => {
        it("Runs tests with built:" + buildNumber, () => {
         homepage.getbuild().select(buildNumber) 
         homepage.getfirstField().should("be.visible")
@@ -119,8 +108,7 @@ describe("Executes MULTIPLY operation testing for each build with integer mode O
 })
 
 describe("Executes DIVIDE operation testing for each build with integer mode OFF", () => {
-      
-    ["Prototype", "1","2","3", "4", "5", "6", "7", "8", "9"].forEach((buildNumber) => {
+    ["Prototype", "1", "2", "3", "4", "5", "6", "7", "8", "9"].forEach((buildNumber) => {
        it("Runs tests with built:" + buildNumber, () => {
         homepage.getbuild().select(buildNumber) 
         homepage.getfirstField().should("be.visible")
@@ -139,8 +127,7 @@ describe("Executes DIVIDE operation testing for each build with integer mode OFF
 })
 
 describe("Executes DIVIDE operation testing for each build with integer mode OFF", () => {
-      
-    ["Prototype", "1","2","3", "4", "5", "6", "7", "8", "9"].forEach((buildNumber) => {
+    ["Prototype", "1", "2", "3", "4", "5", "6", "7", "8", "9"].forEach((buildNumber) => {
        it("Runs tests with built:" + buildNumber, () => {
         homepage.getbuild().select(buildNumber) 
         homepage.getfirstField().should("be.visible")
@@ -159,8 +146,7 @@ describe("Executes DIVIDE operation testing for each build with integer mode OFF
 })
 
 describe("Executes CONCATENATE operation testing for each build and checks that integer mode would not be visible", () => {
-      
-    ["Prototype", "1","2","3", "4", "5", "6", "7", "8", "9"].forEach((buildNumber) => {
+    ["Prototype", "1", "2", "3", "4", "5", "6", "7", "8", "9"].forEach((buildNumber) => {
        it("Runs tests with built:" + buildNumber, () => {
         homepage.getbuild().select(buildNumber) 
         homepage.getfirstField().should("be.visible")
@@ -179,11 +165,8 @@ describe("Executes CONCATENATE operation testing for each build and checks that 
 })
 
 // TESTS WITH INTEGER MODE ON
-
-
 describe("Executes SUBTRACT operation testing for each build with integer mode ON", () => {
-      
-    ["Prototype", "1","2","3", "4", "5", "6", "7", "8", "9"].forEach((buildNumber) => {
+    ["Prototype", "1", "2", "3", "4", "5", "6", "7", "8", "9"].forEach((buildNumber) => {
         it("Runs tests with built:" + buildNumber, () => {
             homepage.getbuild().select(buildNumber) 
             homepage.getfirstField().should("be.visible")
@@ -201,9 +184,8 @@ describe("Executes SUBTRACT operation testing for each build with integer mode O
     })
 })
 
-describe("Executes MULTIPLY operation testing for each build with integer mode ON", () => {
-      
-    ["Prototype", "1","2","3", "4", "5", "6", "7", "8", "9"].forEach((buildNumber) => {
+describe("Executes MULTIPLY operation testing for each build with integer mode ON", () => {  
+    ["Prototype", "1", "2", "3", "4", "5", "6", "7", "8", "9"].forEach((buildNumber) => {
         it("Runs tests with built:" + buildNumber, () => {
             homepage.getbuild().select(buildNumber) 
             homepage.getfirstField().should("be.visible")
@@ -221,9 +203,8 @@ describe("Executes MULTIPLY operation testing for each build with integer mode O
     })
 })
 
-describe("Executes DIVIDE operation testing for each build with integer mode ON", () => {
-      
-    ["Prototype", "1","2","3", "4", "5", "6", "7", "8", "9"].forEach((buildNumber) => {
+describe("Executes DIVIDE operation testing for each build with integer mode ON", () => {  
+    ["Prototype", "1", "2", "3", "4", "5", "6", "7", "8", "9"].forEach((buildNumber) => {
         it("Runs tests with built:" + buildNumber, () => {
             homepage.getbuild().select(buildNumber) 
             homepage.getfirstField().should("be.visible")
