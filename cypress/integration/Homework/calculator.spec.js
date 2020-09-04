@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
 import Calculator from '../../page_objects/calculator.js'
-import testData from '../Homework/numbers.js'
+import testData from './testData.js'
 
 var calculator = new Calculator
 
@@ -17,8 +17,13 @@ testData.forEach((numberArray) => {
 
         describe(formDescribeSentence("1", buildVersion, "Calculator functionality testing with numbers"), () => {
 
-            beforeSectionForPageAndIntegers(numberArray.integersOnly, true, buildVersion);
-            beforeEachClearBothInputFields();
+            before("Selects the 'Integers only' marker based on the integersOnly value and visits the initial page", () => {
+                visitPageSelectBuildIntegersOnly(testData.integersOnly, true, buildVersion)
+            })
+
+            beforeEach("Clears the first and the second input fields", () => {
+                clearBothInputFields()
+            })
 
             it.only(formItSentence("1", "1", "Add", "numbers", numberArray.firstNumber, numberArray.secondNumber, numberArray.integersOnly, "and returns the answer " + numberArray.addOperationResult), () => {
                 performCalculatorOperation(numberArray.firstNumber, numberArray.secondNumber, 'Add')
@@ -48,8 +53,13 @@ testData.forEach((numberArray) => {
 
         describe(formDescribeSentence("2", buildVersion, "Calculator error checking with numbers and symbols"), () => {
 
-            beforeSectionForPageAndIntegers(numberArray.integersOnly, true, buildVersion);
-            beforeEachClearBothInputFields();
+            before("Selects the 'Integers only' marker based on the integersOnly value and visits the initial page", () => {
+                visitPageSelectBuildIntegersOnly(testData.integersOnly, true, buildVersion)
+            })
+
+            beforeEach("Clears the first and the second input fields", () => {
+                clearBothInputFields()
+            })
 
             it.only(formItSentence("2", "1", "Add", "symbols", numberArray.firstSymbol, numberArray.secondSymbol, numberArray.integersOnly, "and returns the following error message - " + errorMessage), () => {
                 performCalculatorOperation(numberArray.firstSymbol, numberArray.secondSymbol, 'Add')
@@ -74,7 +84,9 @@ testData.forEach((numberArray) => {
 
         describe(formDescribeSentence("3", buildVersion, "Calculator 'Clear' button functionality testing with numbers"), () => {
 
-            beforeSectionForPageAndIntegers(numberArray.integersOnly, false, buildVersion)
+            before("Selects the 'Integers only' marker based on the integersOnly value and visits the initial page", () => {
+                visitPageSelectBuildIntegersOnly(integersOnly, integerValidation, buildVersion)
+            })
 
             beforeEach("Selects the 'Integers only' marker based on the integersOnly value", () => {
 
@@ -113,30 +125,22 @@ testData.forEach((numberArray) => {
     })
 })
 
-function visitPageSelectBuildIntegersOnly(integersOnly, integerValidation, buildVersion) {
-    calculator.visitInitialPage()
-    calculator.buildDropDownList().select(buildVersion)
-
+function selectIntegersIfRequired(integersOnly, integerValidation) {
     if (integersOnly && integerValidation) {
         calculator.integerSelection().click()
     }
 }
 
-function beforeSectionForPageAndIntegers(integersOnly, integerValidation, buildVersion) {
-    before("Selects the 'Integers only' marker based on the integersOnly value and visits the initial page", () => {
-        visitPageSelectBuildIntegersOnly(integersOnly, integerValidation, buildVersion)
-    })
+function visitPageSelectBuildIntegersOnly(integersOnly, integerValidation, buildVersion) {
+    calculator.visitInitialPage()
+    calculator.buildDropDownList().select(buildVersion)
+
+    selectIntegersIfRequired(integersOnly, integerValidation)
 }
 
 function clearBothInputFields() {
     calculator.firstNumberField().clear()
     calculator.secondNumberField().clear()
-}
-
-function beforeEachClearBothInputFields() {
-    beforeEach("Clears the first and the second input fields", () => {
-        clearBothInputFields()
-    })
 }
 
 function performCalculatorOperation(firstNumber, secondNumber, operationName) {
