@@ -1,11 +1,13 @@
-import Homepage from '../../page_objects/homepage/homepage.js'
+import Homepage from '../../page_objects/homepage.js'
 /// <reference types="cypress" />
 
 var homepage = new Homepage()
 
 
 beforeEach("Executes before each test",()=>{
-    cy.visit("/")
+    //cypress.json -> {"baseUrl":"https://www.duckduckgo.com"}
+    //cy.visit("/")
+    cy.visit(Cypress.env('duckduckgo_url'))
 })
 
 it("Loads the duckduckGo page", ()=>{
@@ -13,7 +15,7 @@ it("Loads the duckduckGo page", ()=>{
     cy.contains("Tired of being tracked online? We can help.")
 })
 
-it("It can display results relevant to search term - with enter", ()=>{
+it.only("It can display results relevant to search term - with enter", ()=>{
     //cy.visit("https://www.duckduckgo.com")
     homepage.getSearchInputField().type("Test{enter}")
     cy.contains("Speedtest by Ookla")
@@ -35,7 +37,7 @@ it("It can display results relevant to search term - with form submit", ()=>{
 
 //it.only - jei norim tik ta testa leisti
 
-it.only("Removes the banner from test results when X is pressed", ()=>{
+it("Removes the banner from test results when X is pressed", ()=>{
     //cy.visit("https://www.duckduckgo.com")
     homepage.getSearchInputField().type("Test{enter}")
     //cy.get('#search_form_input_homepage').type("Test{enter}")
@@ -57,8 +59,6 @@ it("Displays a cheat sheet in the results page", ()=>{
     cy.get('.c-base__title').contains("Microsoft Word 2010")
 })
 
-//intitle:panda
-//su klaidom
 it("Displays titles with panda in results page", ()=>{
     //cy.visit("https://www.duckduckgo.com")
     cy.get('#search_form_homepage').type("intitle:panda")
@@ -80,4 +80,18 @@ it("should redirect to first result", () => {
    // cy.visit("www.duckduckgo.com");
     cy.get("#search_form_homepage").type("!wiki")
     cy.get('#search_button_homepage').click()
+})
+
+//test10 (parametrized test example generates password of 8,32,64 length)
+describe('should generate secure passwords', () => {
+    [8, 32, 64].forEach((passwordLenght) => {
+        it('generates password with length: ' + passwordLenght, () => {
+            //cy.visit("www.duckduckgo.com")
+            cy.get('#search_form_homepage').type("password " + passwordLenght)
+            cy.get('#search_button_homepage').click();
+            cy.get('.c-base__title').then(($title) => {
+                cy.get($title).invoke('text').its('length').should('be.eq', passwordLenght)
+            })
+        })
+    })
 })
