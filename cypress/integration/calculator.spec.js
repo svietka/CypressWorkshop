@@ -52,7 +52,7 @@ it('Should add positive values correctly', () => {
 });
 
 // TC2 - Testing "Add" operation with negative values
-it('Should add negative values correctly', () => {
+it.only('Should add negative values correctly', () => {
     cal.getInput1().type(-x)
     cal.getInput2().type(-y)
     cal.getDropdown().select("Add")
@@ -160,7 +160,7 @@ it('Should subtract null values correctly', () => {
 });
 
 // TC10 - Testing "Subtract" operation with NaN values;
-it('Should display error message if trying to subtract NaN values', () => {
+it.only('Should display error message if trying to subtract NaN values', () => {
     // Testing 1st input
     cal.getInput1().type('abc')
     cal.getInput2().type(y)
@@ -307,7 +307,7 @@ it('Should divide negative values correctly', () => {
 });
 
 // TC21 - Testing "Divide" operation with null values
-it('Should divide null values correctly', () => {
+it.only('Should divide null values correctly', () => {
     // Testing 1st input
     cal.getInput1().type(0)
     cal.getInput2().type(y)
@@ -423,7 +423,7 @@ it('Should include spaces when concatenating values', () => {
 });
 
 // TC30 - Testing "Integers only" feature
-it('Should display only integers values correctly', () => {
+it.only('Should display only integers values correctly', () => {
     cal.getInput1().type(x1)
     cal.getInput2().type(y1)
     cal.getDropdown().select("Add")
@@ -434,7 +434,7 @@ it('Should display only integers values correctly', () => {
 });
 
 // TC31 - Testing [Clear] button
-it('[Clear] button should clear "Answer" output and "Integers only" input', () => {
+it.only('[Clear] button should clear "Answer" output and "Integers only" input', () => {
     cal.getInput1().type(x1)
     cal.getInput2().type(y1)
     cal.getDropdown().select("Add")
