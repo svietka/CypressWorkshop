@@ -1,1 +1,6 @@
-{"baseUrl":"https://www.duckduckgo.com"}
+{
+    "env":{
+        "duckduckgo_url":"https://www.duckduckgo.com",
+        "calculator_url":"https://testsheepnz.github.io/BasicCalculator"
+    }
+}
