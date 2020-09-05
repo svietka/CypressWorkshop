@@ -1,28 +1,28 @@
 class Homepage{
-        getfirstField(){
+        getFirstField(){
         return cy.get("#number1Field")
     }
-        getsecondField(){
+        getSecondField(){
         return cy.get("#number2Field")
     }
-        getintegerCheckBox(){
+        getIntegerCheckBox(){
         return cy.get("#integerSelect") 
     }
-        getcalculateButton(){
+        getCalculateButton(){
         return cy.get("#calculateButton")
     }
-        getanswerField(){
+        getAnswerField(){
         return cy.get("#numberAnswerField")
     }
-        getoperationDropdown(){
+        getOperationDropdown(){
         return cy.get("#selectOperationDropdown")
     }
-        getintegerselect() {
+        getIntegerselect() {
         return cy.get("#integerSelect")
     }
-        getbuild() {
+        getBuild() {
         return cy.get("#selectBuild")
-        }
+    }
 }
 export default Homepage
 
