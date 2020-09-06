@@ -6,7 +6,7 @@ let second_numbers = [7, 0.7];
 let build_modes = ["Prototype", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 let operation_choices = ["Add", "Subtract", "Multiply", "Divide", "Concatenate"];
 let is_integer_modes = [true, false];
-
+ 
 const test_I_7 = [ build_modes[7], first_numbers[0], second_numbers[0], operation_choices[1], is_integer_modes[0] ];
 const test_I_17 = [ build_modes[2], first_numbers[0], second_numbers[0], operation_choices[4], is_integer_modes[1] ];
 const test_I_27 = [ build_modes[9], first_numbers[0], second_numbers[0], operation_choices[0], is_integer_modes[1] ];
