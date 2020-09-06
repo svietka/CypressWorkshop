@@ -10,7 +10,7 @@ class Calculator{
         return cy.visit('https://testsheepnz.github.io/BasicCalculator')
     }
     selectBuild(build){
-        cy.get('#selectBuild').select(build)
+        cy.get('#selectBuild').select(build).invoke('val')
     }
     calculate(){
         return cy.get('#calculateButton').click()   
