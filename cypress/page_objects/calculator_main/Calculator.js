@@ -7,7 +7,7 @@ class Calculator{
         this.operation_choice_ = operation_choice;
         this.is_result_integer = is_result_integer;
     }
-
+ 
     operationOutcome(){
         if(this.operation_choice_ === "Add"){
             //return this.first_number_  + this.second_number_;
@@ -34,7 +34,7 @@ class Calculator{
             return concatenation_result;
         }
     }
-
+ 
     getBuilMode(){
         return this.build_mode_;
     }
