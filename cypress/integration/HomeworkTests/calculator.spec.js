@@ -18,7 +18,7 @@ before("Executes before all tests", () => {
     cy.visit("https://testsheepnz.github.io/BasicCalculator");
 
 })
-
+ 
 it("visits page", () => {
     cy.contains('Basic Calculator');
 })
