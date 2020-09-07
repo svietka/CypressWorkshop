@@ -21,7 +21,7 @@ const multiply = num1 * num2;
 const divide = num1 / num2;
 const result = num3 + num4;
 const result2 = myString1 + myString2;
-const buildVersion = "1";
+const buildVersion = "3";
 
 describe("Arithmetical operations", () => {
 
