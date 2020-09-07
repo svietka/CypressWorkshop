@@ -21,7 +21,7 @@ const multiply = num1 * num2;
 const divide = num1 / num2;
 const result = num3 + num4;
 const result2 = myString1 + myString2;
-const buildVersion = "0";
+const buildVersion = "1";
 
 describe("Arithmetical operations", () => {
 
@@ -93,7 +93,7 @@ describe("Invalid inputs", () => {
 })
 
 it("Should concatonate two strings", () => {
-    calculator.getBuild().select("0")
+    calculator.getBuild().select(buildVersion)
     calculator.getNum1Field().type(myString1)
     calculator.getNum2Field().type(myString2)
     calculator.getOperation().select("4")
@@ -102,7 +102,7 @@ it("Should concatonate two strings", () => {
 })
 
 it("Should show empty answer field when Clear button was clicked", () => {
-    calculator.getBuild().select("0")
+    calculator.getBuild().select(buildVersion)
     calculator.getNum1Field().type("10")
     calculator.getNum2Field().type("5")
     calculator.getOperation().select("0")
