@@ -1,6 +1,8 @@
 /// <reference types="cypress" />
 import Homepage from '/Users/ieva/CypressWorkshop/cypress/page_objects/homepage/Homepage.js'
 
+// Test
+
 var homepage = new Homepage();
   
 beforeEach("Executes before each test", ()=>{
