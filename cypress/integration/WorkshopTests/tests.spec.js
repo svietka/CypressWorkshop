@@ -2,9 +2,7 @@
 import Homepage from '/Users/ieva/CypressWorkshop/cypress/page_objects/homepage/Homepage.js'
 
 var homepage = new Homepage();
- 
-// amazing
- 
+  
 beforeEach("Executes before each test", ()=>{
     cy.visit("/");
 })
