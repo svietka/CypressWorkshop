@@ -1,18 +1,45 @@
 /// <reference types="cypress" />
 import Calculator from '../../page_objects/calculator_main/Calculator.js';
 
-let first_numbers = [2, 0.2];
-let second_numbers = [7, 0.7];
+let first_numbers = [3, 0.4, -2, 4];
+let second_numbers = [1, 0.6, -0.5, 5];
 let build_modes = ["Prototype", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 let operation_choices = ["Add", "Subtract", "Multiply", "Divide", "Concatenate"];
 let is_integer_modes = [true, false];
 
-const test_I_7 = [ build_modes[7], first_numbers[0], second_numbers[0], operation_choices[1], is_integer_modes[0] ];
-const test_I_17 = [ build_modes[2], first_numbers[0], second_numbers[0], operation_choices[4], is_integer_modes[1] ];
-const test_I_27 = [ build_modes[9], first_numbers[0], second_numbers[0], operation_choices[0], is_integer_modes[1] ];
-const test_II_3 = [ build_modes[4], first_numbers[1], second_numbers[1], operation_choices[2], is_integer_modes[0] ];
-const test_II_18 = [ build_modes[8], first_numbers[1], second_numbers[1], operation_choices[3], is_integer_modes[1] ];
-const demo_tests = [ test_I_7, test_I_17, test_I_27, test_II_3, test_II_18 ];
+// One of the points. Prototype build does not trigger any test failures
+const test_I_Prototype = [ build_modes[0], first_numbers[1], second_numbers[3], operation_choices[1], is_integer_modes[0] ];
+// Prototype build does not trigger any test failures
+// Second build. Concatenate and add functions are mixed up
+const test_I_2 = [ build_modes[2], first_numbers[0], second_numbers[3], operation_choices[4], is_integer_modes[1] ];
+//  Second build. Concatenate and add functions are mixed up instead of "35" it gives us "8"
+
+// Fourth build. Substraction and addition with FLOAT numbers gets you bad results
+const test_I_4 = [ build_modes[4], first_numbers[0], second_numbers[1], operation_choices[1], is_integer_modes[1] ];
+// Fourth build. Substraction gets you a value of "2" instead of "2.4"
+
+// Third build. Multiplication with gives you bad results if you uncheck integer only
+const test_I_3 = [ build_modes[3], first_numbers[0], second_numbers[1], operation_choices[2], is_integer_modes[1] ];
+
+
+// Seventh build. Addition gives you a bad result. (Other operations gives a bad result as well)
+const test_I_77 = [ build_modes[7], first_numbers[0], second_numbers[1], operation_choices[1], is_integer_modes[1] ];
+// Seventh build. Addition gets you a value
+
+// Eight build. Concatenate gives you bad result
+const test_I_8 = [ build_modes[8], first_numbers[0], second_numbers[1], operation_choices[4], is_integer_modes[1] ];
+// Eight build. Concatenate gets you a value of "0.63" instead of "3.6"
+
+
+// const test_I_7 = [ build_modes[7], first_numbers[0], second_numbers[0], operation_choices[1], is_integer_modes[0] ];
+// const test_I_17 = [ build_modes[2], first_numbers[0], second_numbers[3], operation_choices[4], is_integer_modes[1] ];
+// const test_I_27 = [ build_modes[9], first_numbers[0], second_numbers[0], operation_choices[0], is_integer_modes[1] ];
+// const test_II_3 = [ build_modes[4], first_numbers[1], second_numbers[1], operation_choices[2], is_integer_modes[0] ];
+// const test_II_18 = [ build_modes[8], first_numbers[1], second_numbers[1], operation_choices[3], is_integer_modes[1] ];
+// const demo_tests = [ test_I_7, test_I_17, test_I_27, test_II_3, test_II_18 ];
+// AKTYVUOTI EASY WAY!! PANAIKINTI KOMENTAVIMA SEKANCIAI EILUTEI
+ const demo_tests = [ test_I_Prototype, test_I_2, test_I_4, test_I_3, test_I_77, test_I_8 ];
+
 
 before("Executes before all tests", () => {
     cy.visit("https://testsheepnz.github.io/BasicCalculator");
@@ -102,7 +129,8 @@ for(let i = 0; i < demo_tests.length; i++){
         }
     }
 
-    it.only("selects build mode \'" + test_build_mode + "\' and performs two number operation \'" + test_operation_choice + "\' " + is_integer_text, () => {
+    it("selects build mode \'" + test_build_mode + "\' and performs two number operation \'"
+     + test_operation_choice + "\' " + is_integer_text, () => {
         calculator.getClearButton().click();
         calculator.getFirstNumberField().clear();
         calculator.getSecondNumberField().clear();
@@ -129,4 +157,17 @@ for(let i = 0; i < demo_tests.length; i++){
     })
 }
 
-
+// My tests
+// First test
+// it.only('simple addition', () => {
+//     calculator.getBuildDropdown().select(build_modes[1]);
+//     calculator.getFirstNumberField().type(first_numbers[0]);
+//     calculator.getSecondNumberField().type(second_numbers[0]);
+//     calculator.getOperationDropdown().select('Add');
+//     calculator.getCalculateButton().click();
+//     calculator.getSecondNumberField().should('have.value', '4');
+    // cy.get('#number1Field').type(first_numbers[0]);
+    // cy.get('#number2Field').type(second_numbers[0]);
+    // cy.get('#selectOperationDropdown').select('Add');
+    // cy.get('#calculateButton').click();
+// })
