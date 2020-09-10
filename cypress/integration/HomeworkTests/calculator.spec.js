@@ -150,6 +150,5 @@ describe('Asych', function () {
         cy.get('#numberAnswerField').should('have.value', '331')
         
        
-
     })
 })
